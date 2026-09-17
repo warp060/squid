@@ -1,0 +1,398 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Unbounded", "Space Grotesk", system-ui, sans-serif;
+  --font-grotesk: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --color-void: #06070b;
+  --color-abyss: #0b0d14;
+  --color-panel: #10131d;
+  --color-carbon: #161b29;
+  --color-ivory: #f3efe4;
+  --color-dim: #a8afbf;
+  --color-faint: #6b7386;
+  --color-neon: #ff2e7e;
+  --color-crimson: #d31145;
+  --color-blood: #7a0e25;
+  --color-sage: #6f9a7e;
+  --color-steel: #9aa3b2;
+
+  --animate-marquee: marquee 28s linear infinite;
+  --animate-grid-pan: gridPan 26s linear infinite;
+  --animate-pulse-ring: pulseRing 2.6s ease-out infinite;
+  --animate-flicker: flicker 4s linear infinite;
+  --animate-logo-spin: logoSpin 6s linear infinite;
+  --animate-logo-pulse: logoPulse 3s ease-in-out infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes gridPan {
+    from {
+      background-position: 0 0, 0 0;
+    }
+
+    to {
+      background-position: 0 80px, 80px 0;
+    }
+  }
+
+  @keyframes pulseRing {
+    0% {
+      transform: scale(0.9);
+      opacity: 0.7;
+    }
+
+    70% {
+      transform: scale(1.6);
+      opacity: 0;
+    }
+
+    100% {
+      transform: scale(1.6);
+      opacity: 0;
+    }
+  }
+
+  @keyframes flicker {
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    92% {
+      opacity: 1;
+    }
+
+    93% {
+      opacity: 0.55;
+    }
+
+    94% {
+      opacity: 1;
+    }
+
+    96% {
+      opacity: 0.7;
+    }
+
+    97% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes logoSpin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes logoPulse {
+    0%, 100% {
+      box-shadow: 0 0 8px rgba(var(--theme-glow-rgb), 0.3), 0 0 20px rgba(var(--theme-glow-rgb), 0.1);
+    }
+    50% {
+      box-shadow: 0 0 16px rgba(var(--theme-glow-rgb), 0.6), 0 0 40px rgba(var(--theme-glow-rgb), 0.25);
+    }
+  }
+
+  @keyframes soundBar1 {
+    0%, 100% { height: 4px; }
+    50% { height: 16px; }
+  }
+  @keyframes soundBar2 {
+    0%, 100% { height: 14px; }
+    50% { height: 5px; }
+  }
+  @keyframes soundBar3 {
+    0%, 100% { height: 7px; }
+    50% { height: 18px; }
+  }
+  @keyframes musicRipple {
+    0% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-ivory);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-neon);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0d14;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a3040;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-crimson);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-neon);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.bg-arena-grid {
+  background-image:
+    linear-gradient(rgba(255, 46, 126, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 46, 126, 0.055) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.bg-fine-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.09;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.glass {
+  background: rgba(16, 19, 29, 0.62);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.text-glow-pink {
+  text-shadow: 0 0 18px rgba(255, 46, 126, 0.65), 0 0 60px rgba(255, 46, 126, 0.3);
+}
+
+.hud-border {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+.card-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-sheen::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 60%;
+  height: 100%;
+  transform: skewX(-18deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+
+.card-sheen:hover::after {
+  left: 130%;
+}
+
+.clip-tag {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+}
+
+.clip-btn {
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.vertical-rail {
+  writing-mode: vertical-rl;
+  letter-spacing: 0.35em;
+}
+
+input,
+select,
+textarea {
+  color-scheme: dark;
+}
+
+input[type="checkbox"] {
+  accent-color: #ff2e7e;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Theme glow variable (for inline SVG strokes / drop-shadows) ─── */
+:root {
+  --theme-glow-rgb: 255, 46, 126;
+  --theme-cursor-from: #ff2e7e;
+  --theme-cursor-mid: #d31145;
+  --color-secondary: transparent;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   SQUID GAME THEME — white background, hot pink / cyan / green accents
+   ══════════════════════════════════════════════════════════════════════ */
+[data-theme="squidgame"] {
+  /* ── Colour tokens ── */
+  --color-void: #ffffff;
+  --color-abyss: #f3f3f6;
+  --color-panel: #eaeaef;
+  --color-carbon: #dddde4;
+  --color-ivory: #1a1a2e;
+  --color-dim: #44445e;
+  --color-faint: #8888a0;
+  --color-neon: #ff2e88;
+  --color-crimson: #cc1166;
+  --color-blood: #990044;
+  --color-sage: #32d74b;
+  --color-steel: #55557a;
+
+  --color-secondary: #00e5ff;
+
+  --theme-glow-rgb: 255, 46, 136;
+  --theme-cursor-from: #ff2e88;
+  --theme-cursor-mid: #cc1166;
+}
+
+/* ── Body ── */
+[data-theme="squidgame"] body {
+  background: var(--color-void);
+  color: var(--color-ivory);
+}
+
+/* ── Selection ── */
+[data-theme="squidgame"] ::selection {
+  background: var(--color-neon);
+  color: #fff;
+}
+
+/* ── Scrollbar ── */
+[data-theme="squidgame"] ::-webkit-scrollbar-track {
+  background: #eaeaef;
+}
+
+[data-theme="squidgame"] ::-webkit-scrollbar-thumb {
+  background: #c0c0cc;
+}
+
+[data-theme="squidgame"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neon);
+}
+
+/* ── Focus ring ── */
+[data-theme="squidgame"] :focus-visible {
+  outline-color: var(--color-neon);
+}
+
+/* ── Arena grid — light mode ── */
+[data-theme="squidgame"] .bg-arena-grid {
+  background-image:
+    linear-gradient(rgba(255, 46, 136, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 46, 136, 0.08) 1px, transparent 1px);
+}
+
+[data-theme="squidgame"] .bg-fine-grid {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+}
+
+/* ── Grain overlay (lighter) ── */
+[data-theme="squidgame"] .grain::before {
+  opacity: 0.035;
+}
+
+/* ── Glass panels — frosted white ── */
+[data-theme="squidgame"] .glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* ── Text glow ── */
+[data-theme="squidgame"] .text-glow-pink {
+  text-shadow: 0 0 18px rgba(255, 46, 136, 0.55), 0 0 60px rgba(255, 46, 136, 0.2);
+}
+
+/* ── HUD border ── */
+[data-theme="squidgame"] .hud-border {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+/* ── Card sheen — light gloss ── */
+[data-theme="squidgame"] .card-sheen::after {
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.03), transparent);
+}
+
+/* ── Form inputs ── */
+[data-theme="squidgame"] input,
+[data-theme="squidgame"] select,
+[data-theme="squidgame"] textarea {
+  color-scheme: light;
+}
+
+[data-theme="squidgame"] input[type="checkbox"] {
+  accent-color: #ff2e88;
+}
+
+/* ── Footer dark override (stays dark in both themes for contrast) ── */
+/* We keep footer as-is since it already uses explicit colors */
+
+/* ── Hero video overlay adjustments ── */
+[data-theme="squidgame"] .hero-gradient-overlay {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.85), rgba(255,255,255,0.6), rgba(255,255,255,0.95));
+}
+
+/* ── Monospace for countdown and event IDs (Squid Game typography) ── */
+[data-theme="squidgame"] [role="timer"] .font-display {
+  font-family: 'Space Mono', 'Courier New', monospace;
+}
