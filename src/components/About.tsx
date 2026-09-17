@@ -34,6 +34,12 @@ const STATS = [
 export default function About() {
   return (
     <section id="about" className="relative scroll-mt-20 overflow-hidden py-24 md:py-32" aria-label="About INTELLETTO-26">
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-25 mix-blend-luminosity"
+        style={{ backgroundImage: "url('/aboutbg.avif')" }}
+        aria-hidden="true"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#04050a] via-transparent to-[#04050a]" aria-hidden="true" />
       <div className="bg-fine-grid absolute inset-0 opacity-60" aria-hidden="true" />
       <div className="absolute top-0 right-0 h-[420px] w-[420px] rounded-full bg-blood/20 blur-[150px]" aria-hidden="true" />
       <div className="absolute bottom-1/4 -left-32 h-[380px] w-[380px] rounded-full bg-neon/10 blur-[140px]" aria-hidden="true" />

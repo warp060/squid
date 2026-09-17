@@ -81,42 +81,15 @@ function Mark() {
         />
 
         {/* Inner dark circle background */}
-        <span className="absolute inset-[1px] rounded-full bg-void/90 border border-white/10" aria-hidden="true" />
-
-        {/* Guard figure inside */}
-        <motion.svg
-          width="24"
-          height="24"
-          viewBox="0 0 200 200"
-          fill="none"
-          aria-hidden="true"
-          className="relative z-10"
+        <motion.img
+          src="/newlosq.png"
+          alt="Squid Game Logo"
+          className="relative z-10 w-full h-full object-cover rounded-full"
           style={{ filter: `drop-shadow(0 0 5px rgba(var(--theme-glow-rgb),0.7))` }}
           whileHover={{ scale: 1.15 }}
           whileTap={{ scale: 0.9 }}
           transition={{ type: 'spring', stiffness: 300 }}
-        >
-          {/* Hood */}
-          <path
-            d="M100 28 C68 28 48 52 48 78 L48 95 C48 95 50 100 56 102 L56 108 C56 108 58 118 68 120 L68 126 C68 126 66 130 62 132 L58 136 C54 140 56 146 60 148 L140 148 C144 146 146 140 142 136 L138 132 C134 130 132 126 132 126 L132 120 C142 118 144 108 144 108 L144 102 C150 100 152 95 152 95 L152 78 C152 52 132 28 100 28Z"
-            fill="var(--color-neon)"
-          />
-          {/* Face visor */}
-          <ellipse cx="100" cy="82" rx="32" ry="30" fill="var(--color-void)" stroke="rgba(255,255,255,0.15)" strokeWidth="2" />
-          {/* Triangle mask */}
-          <path d="M100 62 L118 94 L82 94 Z" stroke="var(--color-ivory)" strokeWidth="3" strokeLinejoin="round" fill="none" />
-          {/* Cloak */}
-          <path
-            d="M60 148 L56 158 C52 168 54 172 58 174 L80 180 C84 181 88 180 90 178 L100 170 L110 178 C112 180 116 181 120 180 L142 174 C146 172 148 168 144 158 L140 148"
-            fill="var(--color-neon)"
-          />
-          {/* Center line */}
-          <line x1="100" y1="102" x2="100" y2="170" stroke="var(--color-void)" strokeWidth="4" strokeLinecap="round" opacity="0.7" />
-          {/* Drips */}
-          <path d="M72 180 C72 180 70 190 70 194 C70 197 72 199 74 197 C76 195 74 190 72 180Z" fill="var(--color-neon)" />
-          <path d="M100 180 C100 180 98 194 98 200 C98 204 102 204 102 200 C102 194 100 180 100 180Z" fill="var(--color-neon)" />
-          <path d="M128 180 C128 180 130 188 130 192 C130 195 128 197 126 195 C124 193 126 188 128 180Z" fill="var(--color-neon)" />
-        </motion.svg>
+        />
       </button>
 
       {/* Brand Title Link to Home */}

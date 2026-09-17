@@ -9,6 +9,12 @@ const GLYPHS = ['M12 4a8 8 0 100 16 8 8 0 000-16z', 'M12 4l8 16H4z', 'M4 4h16v16
 export default function TeamSection() {
   return (
     <section id="team" className="relative scroll-mt-20 overflow-hidden py-24 md:py-32" aria-label="Team">
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-25 mix-blend-luminosity"
+        style={{ backgroundImage: "url('/teambg.avif')" }}
+        aria-hidden="true"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#04050a] via-transparent to-[#04050a]" aria-hidden="true" />
       <div className="bg-fine-grid absolute inset-0 opacity-50" aria-hidden="true" />
       <div className="absolute -left-32 top-1/3 h-[380px] w-[380px] rounded-full bg-neon/10 blur-[140px]" aria-hidden="true" />
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">

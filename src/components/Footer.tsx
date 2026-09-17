@@ -69,8 +69,8 @@ export default function Footer() {
         </p>
 
         <div className="mt-6 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 sm:flex-row">
-          <p className="font-grotesk text-[11px] tracking-[0.2em] text-faint uppercase">
-            © 2026 INTELLETTO-26 · {ORGANIZER} · All rights reserved
+          <p className="font-grotesk text-[11px] tracking-[0.2em] text-faint uppercase text-center sm:text-left">
+            © 2026 INTELLETTO-26 · Designed and developed by BUILDREX · All rights reserved
           </p>
           <p className="font-grotesk flex items-center gap-2 text-[11px] tracking-[0.2em] text-faint uppercase">
             <ShieldCheck size={13} className="text-sage" /> Enter the arena
@@ -80,4 +80,3 @@ export default function Footer() {
     </footer>
   );
 }
-
