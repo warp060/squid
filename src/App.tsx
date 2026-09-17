@@ -12,6 +12,7 @@ import NotFound from './pages/NotFound';
 
 const RegisterPage = lazy(() => import('./pages/RegisterPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
+const TeamPage = lazy(() => import('./pages/TeamPage'));
 const EventsPage = lazy(() => import('./pages/EventsPage'));
 const SchedulePage = lazy(() => import('./pages/SchedulePage'));
 const RulesPage = lazy(() => import('./pages/RulesPage'));
@@ -58,6 +59,7 @@ export default function App() {
               <Routes>
                 <Route path="/" element={<Home booted={booted} />} />
                 <Route path="/about" element={<AboutPage />} />
+                <Route path="/team" element={<TeamPage />} />
                 <Route path="/events" element={<EventsPage />} />
                 <Route path="/schedule" element={<SchedulePage />} />
                 <Route path="/rules" element={<RulesPage />} />

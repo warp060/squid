@@ -64,7 +64,7 @@ export default function Schedule() {
                   aria-selected={day === d}
                   onClick={() => setDay(d)}
                   className={`font-grotesk cursor-pointer border px-6 py-3 text-[12px] font-bold tracking-[0.25em] uppercase transition-all ${
-                    day === d ? 'border-neon bg-neon/15 text-ivory shadow-[0_0_18px_rgba(255,46,126,0.3)]' : 'border-white/10 text-dim hover:text-ivory'
+                    day === d ? 'border-neon bg-neon/15 text-ivory shadow-[0_0_18px_rgba(237,27,118,0.3)]' : 'border-white/10 text-dim hover:text-ivory'
                   }`}
                 >
                   {d}
@@ -84,7 +84,7 @@ export default function Schedule() {
                 >
                   <span className="absolute top-6 -left-[33px] flex h-4 w-4 items-center justify-center sm:-left-[41px]" aria-hidden="true">
                     <span className="absolute h-4 w-4 rounded-full border border-neon/60" />
-                    <span className="h-1.5 w-1.5 rounded-full bg-neon shadow-[0_0_10px_rgba(255,46,126,0.9)]" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-neon shadow-[0_0_10px_rgba(237,27,118,0.9)]" />
                   </span>
                   <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
                     <span className="font-grotesk inline-flex items-center gap-2 bg-void px-3 py-1.5 text-[11px] font-bold tracking-[0.2em] text-neon ring-1 ring-neon/30">

@@ -12,7 +12,7 @@
   --color-ivory: #f3efe4;
   --color-dim: #a8afbf;
   --color-faint: #6b7386;
-  --color-neon: #ff2e7e;
+  --color-neon: #ed1b76;
   --color-crimson: #d31145;
   --color-blood: #7a0e25;
   --color-sage: #6f9a7e;
@@ -94,37 +94,66 @@
     from {
       transform: rotate(0deg);
     }
+
     to {
       transform: rotate(360deg);
     }
   }
 
   @keyframes logoPulse {
-    0%, 100% {
+
+    0%,
+    100% {
       box-shadow: 0 0 8px rgba(var(--theme-glow-rgb), 0.3), 0 0 20px rgba(var(--theme-glow-rgb), 0.1);
     }
+
     50% {
       box-shadow: 0 0 16px rgba(var(--theme-glow-rgb), 0.6), 0 0 40px rgba(var(--theme-glow-rgb), 0.25);
     }
   }
 
   @keyframes soundBar1 {
-    0%, 100% { height: 4px; }
-    50% { height: 16px; }
+
+    0%,
+    100% {
+      height: 4px;
+    }
+
+    50% {
+      height: 16px;
+    }
   }
+
   @keyframes soundBar2 {
-    0%, 100% { height: 14px; }
-    50% { height: 5px; }
+
+    0%,
+    100% {
+      height: 14px;
+    }
+
+    50% {
+      height: 5px;
+    }
   }
+
   @keyframes soundBar3 {
-    0%, 100% { height: 7px; }
-    50% { height: 18px; }
+
+    0%,
+    100% {
+      height: 7px;
+    }
+
+    50% {
+      height: 18px;
+    }
   }
+
   @keyframes musicRipple {
     0% {
       transform: scale(1);
       opacity: 0.8;
     }
+
     100% {
       transform: scale(2.2);
       opacity: 0;
@@ -289,7 +318,7 @@ input[type="checkbox"] {
   --color-ivory: #1a1a2e;
   --color-dim: #44445e;
   --color-faint: #8888a0;
-  --color-neon: #ff2e88;
+  --color-neon: #ed1b76;
   --color-crimson: #cc1166;
   --color-blood: #990044;
   --color-sage: #32d74b;
@@ -297,8 +326,8 @@ input[type="checkbox"] {
 
   --color-secondary: #00e5ff;
 
-  --theme-glow-rgb: 255, 46, 136;
-  --theme-cursor-from: #ff2e88;
+  --theme-glow-rgb: 237, 27, 118;
+  --theme-cursor-from: #ed1b76;
   --theme-cursor-mid: #cc1166;
 }
 
@@ -335,14 +364,32 @@ input[type="checkbox"] {
 /* ── Arena grid — light mode ── */
 [data-theme="squidgame"] .bg-arena-grid {
   background-image:
-    linear-gradient(rgba(255, 46, 136, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 46, 136, 0.08) 1px, transparent 1px);
+    linear-gradient(rgba(237, 27, 118, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(237, 27, 118, 0.04) 1px, transparent 1px);
 }
 
 [data-theme="squidgame"] .bg-fine-grid {
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+}
+
+/* ── Hero light mode background opacity controls ── */
+[data-theme="squidgame"] .hero-ambient-video {
+  opacity: 0.08 !important;
+  filter: contrast(1.1) brightness(0.95);
+}
+
+[data-theme="squidgame"] .hero-glow-crimson {
+  opacity: 0.10 !important;
+}
+
+[data-theme="squidgame"] .hero-glow-neon {
+  opacity: 0.10 !important;
+}
+
+[data-theme="squidgame"] .hero-grid-overlay {
+  opacity: 0.25 !important;
 }
 
 /* ── Grain overlay (lighter) ── */
@@ -389,7 +436,7 @@ input[type="checkbox"] {
 
 /* ── Hero video overlay adjustments ── */
 [data-theme="squidgame"] .hero-gradient-overlay {
-  background: linear-gradient(to bottom, rgba(255,255,255,0.85), rgba(255,255,255,0.6), rgba(255,255,255,0.95));
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.95));
 }
 
 /* ── Monospace for countdown and event IDs (Squid Game typography) ── */

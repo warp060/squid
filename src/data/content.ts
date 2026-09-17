@@ -6,8 +6,13 @@ export const INSTAGRAM_URL = 'https://www.instagram.com/revibe_events_/';
 export const UNAVAILABLE = 'Details will be announced by the organizers.';
 export const SITE_NAME = 'INTELLETTO-26';
 
-export const STUDENT_COORDINATORS = ['Nayeemullah.R', 'Jayaprakash.B', 'Md Tauseef Saleem V'];
+export const TEAM = {
+  hod: 'Mrs. M. Dhanalakshmi',
+  facultyCoordinator: 'Mr. Yoga Moorthy R',
+  studentCoordinators: ['Iman shihad', 'Naeemullah.R', 'Jayaprakash.B', 'Rizwan']
+};
 
+export const STUDENT_COORDINATORS = ['Nayeemullah.R', 'Jayaprakash.B', 'Md Tauseef Saleem V'];
 export interface EventCrew {
   unit: string;
   coordinators: string[];
@@ -54,6 +59,7 @@ export const EVENT_IMAGES: Record<string, string> = {
 export const NAV_LINKS = [
   { id: 'home', label: 'Home', path: '/' },
   { id: 'about', label: 'About', path: '/about' },
+  { id: 'team', label: 'Team', path: '/team' },
   { id: 'events', label: 'Events', path: '/events' },
   { id: 'schedule', label: 'Schedule', path: '/schedule' },
   { id: 'rules', label: 'Rules', path: '/rules' },

@@ -193,7 +193,7 @@ export default function RegisterWizard() {
                       onClick={() => toggleEvent(e.slug)}
                       aria-pressed={on}
                       className={`cursor-pointer border p-4 text-left transition-all ${
-                        on ? 'border-neon bg-neon/10 shadow-[0_0_18px_rgba(255,46,126,0.3)]' : 'hud-border bg-panel/60 hover:border-white/25'
+                        on ? 'border-neon bg-neon/10 shadow-[0_0_18px_rgba(237,27,118,0.3)]' : 'hud-border bg-panel/60 hover:border-white/25'
                       }`}
                     >
                       <span className="flex items-center justify-between gap-2">

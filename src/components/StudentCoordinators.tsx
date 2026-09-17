@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Crown } from 'lucide-react';
 import SectionHeading from './SectionHeading';
 import { STUDENT_COORDINATORS } from '../data/content';
@@ -33,7 +34,7 @@ export default function StudentCoordinators() {
                   <path d={GLYPHS[i % 3]} />
                 </svg>
               </span>
-              <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-neon/40 bg-neon/10 transition-shadow group-hover:shadow-[0_0_28px_rgba(255,46,126,0.4)]">
+              <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-neon/40 bg-neon/10 transition-shadow group-hover:shadow-[0_0_28px_rgba(237,27,118,0.4)]">
                 <Crown size={26} className="text-neon" />
               </span>
               <p className="font-grotesk mt-5 text-[10px] tracking-[0.35em] text-faint">COMMANDER 0{i + 1}</p>
@@ -44,12 +45,12 @@ export default function StudentCoordinators() {
           ))}
         </div>
         <div className="mt-12 text-center">
-          <a
-            href="#events"
-            className="font-grotesk inline-flex items-center gap-2 border border-white/15 bg-panel/60 px-6 py-3 text-[11.5px] font-bold tracking-[0.2em] text-dim uppercase transition-all hover:border-neon hover:text-ivory hover:shadow-[0_0_20px_rgba(255,46,126,0.25)]"
+          <Link
+            to="/events?view=coordinators"
+            className="font-grotesk inline-flex items-center gap-2 border border-white/15 bg-panel/60 px-6 py-3 text-[11.5px] font-bold tracking-[0.2em] text-dim uppercase transition-all hover:border-neon hover:text-ivory hover:shadow-[0_0_20px_rgba(237,27,118,0.25)]"
           >
             Explore 8 Arena Event Coordinators & Crew ↓
-          </a>
+          </Link>
         </div>
       </div>
     </section>

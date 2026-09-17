@@ -50,11 +50,11 @@ export default function Hero({ booted }: { booted: boolean }) {
   }, [isPlaying]);
 
   return (
-    <section id="home" className="grain relative flex min-h-[100svh] items-center overflow-hidden" aria-label="INTELLETTO-26 hero">
+    <section id="home" className="grain relative flex min-h-[100svh] flex-col justify-center overflow-hidden" aria-label="INTELLETTO-26 hero">
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
         {/* Default ambient hero video */}
         <video
-          className={`h-full w-full object-cover transition-opacity duration-1000 ${
+          className={`hero-ambient-video h-full w-full object-cover transition-opacity duration-1000 ${
             isPlaying ? 'opacity-0' : 'opacity-45'
           }`}
           src="/media/hero-arena.mp4"
@@ -82,9 +82,9 @@ export default function Hero({ booted }: { booted: boolean }) {
         {/* Dark cinematic gradient overlays for pristine text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-void/85 via-void/50 to-void" />
         <div className="absolute inset-0 bg-gradient-to-r from-void/90 via-transparent to-void/70" />
-        <div className="bg-arena-grid animate-grid-pan absolute inset-0 opacity-55" />
-        <div className="absolute -left-40 top-1/3 h-[480px] w-[480px] rounded-full bg-crimson/25 blur-[140px]" />
-        <div className="absolute -right-32 bottom-0 h-[380px] w-[380px] rounded-full bg-neon/20 blur-[130px]" />
+        <div className="hero-grid-overlay bg-arena-grid animate-grid-pan absolute inset-0 opacity-55" />
+        <div className="hero-glow-crimson absolute -left-40 top-1/3 h-[480px] w-[480px] rounded-full bg-crimson/25 blur-[140px]" />
+        <div className="hero-glow-neon absolute -right-32 bottom-0 h-[380px] w-[380px] rounded-full bg-neon/20 blur-[130px]" />
 
         {/* Dynamic neon pink audio mood glow when video is active */}
         {isPlaying && (
@@ -96,7 +96,7 @@ export default function Hero({ booted }: { booted: boolean }) {
         <FloatShape className="absolute top-[16%] right-[10%] hidden h-20 w-20 md:block" d="M12 4a8 8 0 100 16 8 8 0 000-16z" />
         <FloatShape className="absolute top-[58%] right-[22%] hidden h-12 w-12 text-ivory/30 lg:block" d="M12 4l8 16H4z" delay={1.4} />
         <FloatShape className="absolute bottom-[18%] left-[6%] hidden h-14 w-14 text-crimson/60 md:block" d="M4 4h16v16H4z" delay={2.2} />
-        <FloatShape className="absolute top-[24%] left-[14%] h-8 w-8 text-ivory/20" d="M12 4l8 16H4z" delay={0.8} />
+        <FloatShape className="absolute top-[24%] left-[14%] hidden h-8 w-8 text-ivory/20 md:block" d="M12 4l8 16H4z" delay={0.8} />
       </div>
 
       <div className="font-grotesk pointer-events-none absolute top-1/2 left-5 hidden -translate-y-1/2 xl:block" aria-hidden="true">
@@ -110,66 +110,84 @@ export default function Hero({ booted }: { booted: boolean }) {
         variants={container}
         initial="hidden"
         animate={booted ? 'show' : 'hidden'}
-        className="relative z-10 mx-auto w-full max-w-7xl px-4 pt-24 pb-14 sm:px-6 sm:pt-32 sm:pb-20 md:pt-36 lg:px-8"
+        className="relative z-10 mx-auto w-full max-w-7xl px-4 xs:px-5 sm:px-6 md:px-8 pt-24 pb-12 sm:pt-32 sm:pb-20 md:pt-36 lg:px-8"
       >
-        <motion.div variants={item} className="flex flex-wrap items-center gap-2">
-          <span className="clip-tag font-grotesk inline-flex items-center gap-2 bg-neon/15 px-4 py-2 text-[10.5px] font-semibold tracking-[0.3em] text-neon uppercase ring-1 ring-neon/40 sm:text-[11px]">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-neon" aria-hidden="true" />
-            {ORGANIZER} presents
+        {/* 1. Department Badge */}
+        <motion.div variants={item} className="flex flex-wrap items-center">
+          <span className="clip-tag font-grotesk inline-flex items-center gap-2 bg-neon/15 px-3 py-1.5 sm:px-4 sm:py-2 text-[10px] sm:text-[11px] font-semibold tracking-[0.2em] sm:tracking-[0.3em] text-neon uppercase ring-1 ring-neon/40 max-w-full">
+            <span className="h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-neon" aria-hidden="true" />
+            <span className="sm:hidden">Dept. of AI & ML presents</span>
+            <span className="hidden sm:inline">{ORGANIZER} presents</span>
           </span>
         </motion.div>
 
-        <motion.p variants={item} className="font-grotesk mt-3 text-xs tracking-[0.45em] text-steel sm:mt-6 sm:text-sm">
+        {/* 2. Symposium Text */}
+        <motion.p variants={item} className="font-grotesk mt-3 sm:mt-5 text-[11px] sm:text-sm tracking-[0.22em] sm:tracking-[0.45em] text-steel font-medium uppercase leading-relaxed">
           NATIONAL LEVEL TECHNICAL SYMPOSIUM
         </motion.p>
 
-        <motion.h1 variants={item} className="font-display mt-2 leading-[0.95] font-black tracking-tight sm:mt-3">
-          <span className="block text-[clamp(2.1rem,8.6vw,7rem)] text-ivory">
+        {/* 3 & 4. Title & Arena Tagline */}
+        <motion.h1 variants={item} className="font-display mt-2 sm:mt-3 leading-[0.95] font-black tracking-tight">
+          <span className="block text-[clamp(2.35rem,9.2vw,7rem)] text-ivory">
             INTELLETTO<span className="text-neon text-glow-pink animate-flicker">-26</span>
           </span>
-          <span className="font-grotesk mt-2 block text-[clamp(0.8rem,2.4vw,1.5rem)] font-medium tracking-[0.28em] text-dim uppercase sm:mt-4">
+          <span className="font-grotesk mt-2 sm:mt-4 block text-[clamp(0.85rem,2.8vw,1.5rem)] font-bold tracking-[0.26em] sm:tracking-[0.28em] text-dim uppercase leading-tight">
             The Survival Arena
           </span>
         </motion.h1>
 
-        <motion.p variants={item} className="mt-3 max-w-2xl text-[13.5px] leading-snug text-dim sm:mt-6 sm:text-[15px] sm:leading-relaxed">
+        {/* 5. Description */}
+        <motion.p variants={item} className="mt-3.5 sm:mt-6 max-w-2xl text-[13px] sm:text-[15px] leading-relaxed text-dim">
           <span className="hidden sm:inline">Eight competition arenas. Two divisions. One national stage. Conducted by the Department of Artificial Intelligence and Machine Learning. Solve, design, battle, present, and outlast the finest student minds in the country — under the lights of the arena.</span>
           <span className="sm:hidden">8 arenas. 2 divisions. One national stage — outlast the finest student minds under the lights of the arena.</span>
         </motion.p>
 
-        <motion.div variants={item} className="font-grotesk mt-3 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[10.5px] tracking-[0.18em] text-steel uppercase sm:mt-6 sm:gap-x-6 sm:gap-y-2 sm:text-[13px]">
-          <span className="inline-flex items-center gap-1.5 sm:gap-2"><CalendarDays size={14} className="text-neon sm:size-[15px]" /> {EVENT_DATES_LABEL}</span>
-          <span className="inline-flex items-center gap-1.5 sm:gap-2"><MapPin size={14} className="text-neon sm:size-[15px]" /> <span className="hidden sm:inline">{VENUE_SHORT}</span><span className="sm:hidden">CAHCET · Vellore</span></span>
+        {/* 6. Date / Location */}
+        <motion.div variants={item} className="font-grotesk mt-4 sm:mt-6 flex flex-wrap items-center gap-2.5 sm:gap-3 text-[11px] sm:text-[13px] tracking-[0.14em] sm:tracking-[0.18em] uppercase">
+          <span className="hud-border inline-flex items-center gap-2 rounded-sm bg-panel/80 px-3 py-1.5 text-steel shadow-sm backdrop-blur">
+            <CalendarDays size={14} className="text-neon shrink-0 sm:size-[15px]" />
+            <span>{EVENT_DATES_LABEL}</span>
+          </span>
+          <span className="hud-border inline-flex items-center gap-2 rounded-sm bg-panel/80 px-3 py-1.5 text-steel shadow-sm backdrop-blur">
+            <MapPin size={14} className="text-neon shrink-0 sm:size-[15px]" />
+            <span className="hidden sm:inline">{VENUE_SHORT}</span>
+            <span className="sm:hidden">CAHCET · Vellore</span>
+          </span>
         </motion.div>
 
-        <motion.div variants={item} className="mt-5 flex flex-col gap-2.5 sm:mt-9 sm:flex-row sm:items-center sm:gap-3">
+        {/* 7 & 8. REGISTER NOW & EXPLORE EVENTS Buttons */}
+        <motion.div variants={item} className="mt-5 sm:mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center sm:gap-4">
           <Link
             to="/register"
-            className="clip-btn group font-grotesk inline-flex items-center justify-center gap-2 bg-neon px-6 py-3 text-[12.5px] font-bold tracking-[0.2em] text-white uppercase transition-all duration-300 hover:bg-crimson hover:shadow-[0_0_36px_rgba(255,46,126,0.6)] sm:px-8 sm:py-4 sm:text-sm"
+            className="clip-btn group font-grotesk inline-flex min-h-[48px] w-full sm:w-auto items-center justify-center gap-2 bg-neon px-6 py-3.5 sm:px-8 sm:py-4 text-[12px] sm:text-sm font-bold tracking-[0.18em] sm:tracking-[0.2em] text-white uppercase transition-all duration-300 hover:bg-crimson hover:shadow-[0_0_36px_rgba(237,27,118,0.6)]"
           >
             <Ticket size={16} className="transition-transform group-hover:-rotate-12" /> Register Now
           </Link>
           <Link
             to="/events"
-            className="clip-btn font-grotesk inline-flex items-center justify-center gap-2 border border-white/20 bg-white/5 px-6 py-3 text-[12.5px] font-bold tracking-[0.2em] text-ivory uppercase backdrop-blur transition-all duration-300 hover:border-neon/60 hover:bg-neon/10 sm:px-8 sm:py-4 sm:text-sm"
+            className="clip-btn font-grotesk inline-flex min-h-[48px] w-full sm:w-auto items-center justify-center gap-2 border border-white/20 bg-white/5 px-6 py-3.5 sm:px-8 sm:py-4 text-[12px] sm:text-sm font-bold tracking-[0.18em] sm:tracking-[0.2em] text-ivory uppercase backdrop-blur transition-all duration-300 hover:border-neon/60 hover:bg-neon/10"
           >
             <Compass size={16} /> Explore Events
           </Link>
         </motion.div>
 
-        <motion.div variants={item} className="mt-6 sm:mt-12">
-          <p className="font-grotesk mb-2 text-[9px] tracking-[0.35em] text-faint sm:mb-3 sm:text-[10px]">THE ARENA OPENS IN</p>
+        {/* 9. Countdown Section */}
+        <motion.div variants={item} className="mt-6 sm:mt-11 pb-8 sm:pb-0">
+          <div className="mb-2.5 sm:mb-3 flex items-center gap-2 font-grotesk text-[9.5px] sm:text-[10px] tracking-[0.3em] text-faint uppercase">
+            <span className="h-1.5 w-1.5 rounded-full bg-neon animate-pulse" aria-hidden="true" />
+            <span>THE ARENA OPENS IN</span>
+          </div>
           <Countdown />
         </motion.div>
       </motion.div>
 
-      <div className="absolute inset-x-0 bottom-0 border-t border-white/10 bg-void/70 py-3 backdrop-blur" aria-hidden="true">
+      <div className="relative border-t border-white/10 bg-void/80 py-2.5 sm:py-3 backdrop-blur sm:absolute sm:inset-x-0 sm:bottom-0" aria-hidden="true">
         <div className="flex w-max animate-marquee gap-0 whitespace-nowrap">
           {[0, 1].map((n) => (
-            <span key={n} className="font-grotesk text-[11px] tracking-[0.35em] text-dim uppercase">
+            <span key={n} className="font-grotesk text-[10px] sm:text-[11px] tracking-[0.35em] text-dim uppercase">
               {Array.from({ length: 6 }).map((_, i) => (
-                <span key={i} className="mx-6">
-                  Enter the arena <span className="mx-6 text-neon">○</span> Intelletto-26 <span className="mx-6 text-neon">△</span> 13 stages <span className="mx-6 text-neon">□</span>
+                <span key={i} className="mx-4 sm:mx-6">
+                  Enter the arena <span className="mx-4 sm:mx-6 text-neon">○</span> Intelletto-26 <span className="mx-4 sm:mx-6 text-neon">△</span> 13 stages <span className="mx-4 sm:mx-6 text-neon">□</span>
                 </span>
               ))}
             </span>

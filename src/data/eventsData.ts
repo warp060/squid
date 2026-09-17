@@ -21,6 +21,10 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
     icon: 'BrainCircuit',
     stage_code: 'STAGE // ALPHA',
     team_size: '2 Players',
+    member_limit: 'Maximum of 2 members',
+    per_head_fee: '50/-',
+    team_fee: '100/-',
+    prize: '300/200',
     duration: '90 Minutes',
     eligibility: 'All Engineering & Tech Students',
     rules: [
@@ -31,7 +35,7 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
       'Decision of quiz masters and coordinators is final.'
     ],
     venue_hint: 'Main Seminar Hall',
-    fee: 'Included in symposium pass',
+    fee: '₹50/- per head · ₹100/- per team',
     sort_order: 1,
     coordinators: ['Hasni Mubarak', 'Sanjana V'],
     team: ['Azeez', 'Nithish Kumar', 'Vaishnavi'],
@@ -46,6 +50,10 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
     icon: 'Code2',
     stage_code: 'STAGE // BETA',
     team_size: '1 — 2 Players',
+    member_limit: 'Maximum of 2 members',
+    per_head_fee: '50/-',
+    team_fee: '100/-',
+    prize: '300/200',
     duration: '2.5 Hours',
     eligibility: 'All UG / PG Students',
     rules: [
@@ -56,7 +64,7 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
       'Plagiarism of existing templates without modification is forbidden.'
     ],
     venue_hint: 'Advanced Computing Lab 1',
-    fee: 'Included in symposium pass',
+    fee: '₹50/- per head · ₹100/- per team',
     sort_order: 2,
     coordinators: ['Fareeduddeen', 'Sumaiya J'],
     team: ['Mohammed Ameen', 'Mohammed Affan', 'Shalini'],
@@ -71,6 +79,10 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
     icon: 'FileText',
     stage_code: 'STAGE // GAMMA',
     team_size: '2 — 3 Players',
+    member_limit: 'Maximum of 2 members',
+    per_head_fee: '100/-',
+    team_fee: '150/-',
+    prize: '500/300',
     duration: '10 Mins (7 presentation + 3 Q&A)',
     eligibility: 'All Engineering & Polytechnic Students',
     rules: [
@@ -80,7 +92,7 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
       'All team members must actively participate in presentation or answering queries.'
     ],
     venue_hint: 'Conference Auditorium B',
-    fee: 'Included in symposium pass',
+    fee: '₹100/- per head · ₹150/- per team',
     sort_order: 3,
     coordinators: ['Jagan', 'Rasika'],
     team: ['Vijay', 'Falak', 'Harish Priyan'],
@@ -95,6 +107,10 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
     icon: 'Sparkles',
     stage_code: 'STAGE // DELTA',
     team_size: 'Solo or Duo (1 — 2 Players)',
+    member_limit: 'Maximum of 2 members',
+    per_head_fee: '50/-',
+    team_fee: '100/-',
+    prize: '300/200',
     duration: '60 Minutes',
     eligibility: 'Open to All Registrants',
     rules: [
@@ -104,7 +120,7 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
       'Coordinators will specify prohibited tokens and test environment.'
     ],
     venue_hint: 'AI & Data Science Lab',
-    fee: 'Included in symposium pass',
+    fee: '₹50/- per head · ₹100/- per team',
     sort_order: 4,
     coordinators: ['Nizzamuddin', 'Yuvarani'],
     team: ['Evinesh', 'Priyanka V.'],
@@ -119,6 +135,10 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
     icon: 'Gamepad2',
     stage_code: 'STAGE // EPSILON',
     team_size: 'Squad (4 Players)',
+    member_limit: 'Team of 4 members',
+    per_head_fee: '-',
+    team_fee: '200/-',
+    prize: '500/300',
     duration: 'Custom Room Matches',
     eligibility: 'All Registered Symposium Players',
     rules: [
@@ -128,7 +148,7 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
       'Points calculated using official tournament survival rank + kill multipliers.'
     ],
     venue_hint: 'E-Sports Arena / Hall 3',
-    fee: 'Included in symposium pass',
+    fee: '₹200/- per team',
     sort_order: 5,
     coordinators: ['Sabarivasan'],
     team: ['Shanmugam', 'Imran', 'Yukesh'],
@@ -143,6 +163,10 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
     icon: 'Zap',
     stage_code: 'STAGE // ZETA',
     team_size: '2 Players',
+    member_limit: 'Maximum of 2 members',
+    per_head_fee: '50/-',
+    team_fee: '100/-',
+    prize: '300/200',
     duration: '75 Minutes',
     eligibility: 'Open to All Registrants',
     rules: [
@@ -152,7 +176,7 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
       'Electronic devices strictly forbidden in arena.'
     ],
     venue_hint: 'Mechanical Block Seminar Room',
-    fee: 'Included in symposium pass',
+    fee: '₹50/- per head · ₹100/- per team',
     sort_order: 6,
     coordinators: ['Arif', 'Priyanka I'],
     team: ['Aiman', 'Pooja Shree'],
@@ -167,6 +191,10 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
     icon: 'Crown',
     stage_code: 'STAGE // ETA',
     team_size: 'Solo Entry (1 Player)',
+    member_limit: 'Maximum of 2 members',
+    per_head_fee: '50/-',
+    team_fee: '100/-',
+    prize: '300/200',
     duration: 'Knockout Stages',
     eligibility: 'Open to All Registrants',
     rules: [
@@ -176,7 +204,7 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
       'Last player standing claims the grand victory.'
     ],
     venue_hint: 'Open Air Amphitheatre / Quad',
-    fee: 'Included in symposium pass',
+    fee: '₹50/- per head · ₹100/- per team',
     sort_order: 7,
     coordinators: ['Emad Ur Rahman', 'Samyuktha'],
     team: ['Mohammed Amaan', 'Hemasri B'],
@@ -191,6 +219,10 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
     icon: 'Palette',
     stage_code: 'STAGE // THETA',
     team_size: 'Solo (1 Creator)',
+    member_limit: 'Maximum of 4 members',
+    per_head_fee: '-',
+    team_fee: '150/-',
+    prize: '300/200',
     duration: 'Full Day Capture + Review Slot',
     eligibility: 'Open to All Photographers & Creators',
     rules: [
@@ -200,7 +232,7 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
       'Exif metadata must be verifiable upon coordinator request.'
     ],
     venue_hint: 'Media & Arts Pavilion',
-    fee: 'Included in symposium pass',
+    fee: '₹150/- per team',
     sort_order: 8,
     coordinators: ['Ashiq', 'Sai'],
     team: [],

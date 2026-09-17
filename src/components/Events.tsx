@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   FileText, Zap, BrainCircuit, Code2, Sparkles, Gamepad2, Crown,
-  Palette, X, Users, Clock, BadgeCheck, MapPin, Ticket,
+  Palette, X, Users, Clock, BadgeCheck, MapPin, Ticket, Trophy,
   Eye, Loader2, Fingerprint, ShieldCheck, LayoutGrid, UsersRound,
   CheckCircle2, ArrowUpRight, type LucideIcon,
 } from 'lucide-react';
@@ -44,11 +44,13 @@ function EventModal({ event, onClose }: { event: ArenaEvent | OfficialEvent; onC
   const banner = EVENT_IMAGES[event.slug] ?? '/media/arena-key.jpg';
   const rows = [
     { icon: Fingerprint, k: 'Event ID', v: `EVT-${String(event.sort_order).padStart(2, '0')}` },
-    { icon: Users, k: 'Team size', v: event.team_size },
+    { icon: Users, k: 'Member Limit', v: event.member_limit || event.team_size },
+    { icon: Ticket, k: 'Per Head Fee', v: event.per_head_fee || '-' },
+    { icon: Ticket, k: 'Team Fee', v: event.team_fee || '-' },
+    { icon: Trophy, k: 'Prize (1st / 2nd)', v: event.prize ? `₹${event.prize}` : UNAVAILABLE },
     { icon: Clock, k: 'Duration', v: event.duration },
     { icon: BadgeCheck, k: 'Eligibility', v: event.eligibility },
     { icon: MapPin, k: 'Arena', v: event.venue_hint },
-    { icon: Ticket, k: 'Entry', v: event.fee },
   ];
 
   return (
@@ -171,7 +173,7 @@ function EventModal({ event, onClose }: { event: ArenaEvent | OfficialEvent; onC
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <Link
               to="/register"
-              className="clip-btn font-grotesk inline-flex flex-1 items-center justify-center gap-2 bg-neon px-6 py-3.5 text-[13px] font-bold tracking-[0.2em] text-white uppercase transition-all hover:bg-crimson hover:shadow-[0_0_24px_rgba(255,46,126,0.5)]"
+              className="clip-btn font-grotesk inline-flex flex-1 items-center justify-center gap-2 bg-neon px-6 py-3.5 text-[13px] font-bold tracking-[0.2em] text-white uppercase transition-all hover:bg-crimson hover:shadow-[0_0_24px_rgba(237,27,118,0.5)]"
             >
               <Ticket size={16} /> Enter Arena / Register
             </Link>
@@ -179,7 +181,7 @@ function EventModal({ event, onClose }: { event: ArenaEvent | OfficialEvent; onC
               onClick={onClose}
               className="font-grotesk cursor-pointer border border-white/15 px-6 py-3.5 text-[13px] font-bold tracking-[0.2em] text-dim uppercase transition-colors hover:border-white/40 hover:text-ivory"
             >
-              Close Dossier
+              Close
             </button>
           </div>
         </div>
@@ -244,7 +246,7 @@ export default function Events() {
                 aria-selected={filter === f.id}
                 onClick={() => setFilter(f.id)}
                 className={`font-grotesk cursor-pointer border px-4 py-2 text-[11.5px] font-bold tracking-[0.2em] uppercase transition-all ${filter === f.id
-                    ? 'border-neon bg-neon/15 text-ivory shadow-[0_0_18px_rgba(255,46,126,0.35)]'
+                    ? 'border-neon bg-neon/15 text-ivory shadow-[0_0_18px_rgba(237,27,118,0.35)]'
                     : 'border-white/10 text-dim hover:border-white/30 hover:text-ivory'
                   }`}
               >
@@ -304,7 +306,7 @@ export default function Events() {
                     exit={{ opacity: 0, scale: 0.96 }}
                     transition={{ duration: 0.35 }}
                     whileHover={{ y: -6 }}
-                    className="hud-border card-sheen group relative flex flex-col justify-between overflow-hidden bg-panel/80 p-0 transition-all hover:border-neon/50 hover:shadow-[0_0_30px_rgba(255,46,126,0.18)]"
+                    className="hud-border card-sheen group relative flex flex-col justify-between overflow-hidden bg-panel/80 p-0 transition-all hover:border-neon/50 hover:shadow-[0_0_30px_rgba(237,27,118,0.18)]"
                   >
                     <div>
                       {/* Banner Image */}
@@ -377,13 +379,13 @@ export default function Events() {
                       <button
                         onClick={() => setSelected(e)}
                         className="font-grotesk inline-flex flex-1 cursor-pointer items-center justify-center gap-1.5 border border-white/15 px-3 py-2 text-[11px] font-bold tracking-[0.16em] text-steel uppercase transition-colors hover:border-neon/60 hover:text-neon"
-                        aria-label={`View dossier for ${e.name}`}
+                        aria-label={`View details for ${e.name}`}
                       >
-                        <Eye size={13} /> Dossier
+                        <Eye size={13} /> View Details
                       </button>
                       <Link
                         to="/register"
-                        className="font-grotesk inline-flex flex-1 items-center justify-center gap-1.5 bg-neon/85 px-3 py-2 text-[11px] font-bold tracking-[0.16em] text-white uppercase transition-all hover:bg-neon hover:shadow-[0_0_15px_rgba(255,46,126,0.5)]"
+                        className="font-grotesk inline-flex flex-1 items-center justify-center gap-1.5 bg-neon/85 px-3 py-2 text-[11px] font-bold tracking-[0.16em] text-white uppercase transition-all hover:bg-neon hover:shadow-[0_0_15px_rgba(237,27,118,0.5)]"
                         aria-label={`Register for ${e.name}`}
                       >
                         <Ticket size={13} /> Enter
@@ -479,7 +481,7 @@ export default function Events() {
                         onClick={() => setSelected(e)}
                         className="font-grotesk mt-5 flex w-full cursor-pointer items-center justify-center gap-1 border border-white/15 py-2 text-[11px] font-bold tracking-[0.16em] text-dim uppercase transition-colors hover:border-neon hover:text-neon"
                       >
-                        View Arena Dossier <ArrowUpRight size={13} />
+                        View Details <ArrowUpRight size={13} />
                       </button>
                     </div>
                   );
@@ -573,7 +575,7 @@ export default function Events() {
                         onClick={() => setSelected(e)}
                         className="font-grotesk mt-5 flex w-full cursor-pointer items-center justify-center gap-1 border border-white/15 py-2 text-[11px] font-bold tracking-[0.16em] text-dim uppercase transition-colors hover:border-sage hover:text-sage"
                       >
-                        View Arena Dossier <ArrowUpRight size={13} />
+                        View Details <ArrowUpRight size={13} />
                       </button>
                     </div>
                   );

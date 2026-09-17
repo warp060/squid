@@ -75,7 +75,7 @@ function Mark() {
 
         {/* Pulsing glow circle */}
         <span
-          className={`absolute inset-0 rounded-full animate-logo-pulse ${isPlaying ? 'shadow-[0_0_20px_rgba(255,46,126,0.65)]' : ''
+          className={`absolute inset-0 rounded-full animate-logo-pulse ${isPlaying ? 'shadow-[0_0_20px_rgba(237,27,118,0.65)]' : ''
             }`}
           aria-hidden="true"
         />
@@ -219,7 +219,7 @@ export default function Navbar() {
 
             <Link
               to="/register"
-              className="clip-btn font-grotesk hidden items-center gap-2 bg-neon px-5 py-2.5 text-[12.5px] font-bold tracking-[0.16em] text-white uppercase transition-all hover:bg-crimson hover:shadow-[0_0_24px_rgba(255,46,126,0.55)] sm:inline-flex"
+              className="clip-btn font-grotesk hidden items-center gap-2 bg-neon px-5 py-2.5 text-[12.5px] font-bold tracking-[0.16em] text-white uppercase transition-all hover:bg-crimson hover:shadow-[0_0_24px_rgba(237,27,118,0.55)] sm:inline-flex"
             >
               <Ticket size={15} /> Register
             </Link>
@@ -311,7 +311,7 @@ export default function Navbar() {
                             to={l.path}
                             onClick={() => setOpen(false)}
                             className={`font-grotesk group flex w-full cursor-pointer items-center justify-between rounded-xs px-3 py-3 text-left text-[13.5px] font-semibold tracking-[0.18em] uppercase transition-all ${isCurrent
-                              ? 'border border-neon/40 bg-neon/15 text-ivory shadow-[0_0_15px_rgba(255,46,126,0.25)]'
+                              ? 'border border-neon/40 bg-neon/15 text-ivory shadow-[0_0_15px_rgba(237,27,118,0.25)]'
                               : 'text-dim hover:bg-white/5 hover:text-ivory'
                               }`}
                           >
@@ -337,7 +337,7 @@ export default function Navbar() {
                 <Link
                   to="/register"
                   onClick={() => setOpen(false)}
-                  className="clip-btn font-grotesk flex w-full items-center justify-center gap-2 bg-neon py-3.5 text-[13px] font-bold tracking-[0.2em] text-white uppercase transition-all hover:bg-crimson hover:shadow-[0_0_20px_rgba(255,46,126,0.6)]"
+                  className="clip-btn font-grotesk flex w-full items-center justify-center gap-2 bg-neon py-3.5 text-[13px] font-bold tracking-[0.2em] text-white uppercase transition-all hover:bg-crimson hover:shadow-[0_0_20px_rgba(237,27,118,0.6)]"
                 >
                   <Ticket size={16} /> Register for Arenas
                 </Link>

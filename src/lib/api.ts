@@ -8,6 +8,10 @@ export interface ArenaEvent {
   icon: string;
   stage_code: string;
   team_size: string;
+  member_limit: string;
+  per_head_fee: string;
+  team_fee: string;
+  prize: string;
   duration: string;
   eligibility: string;
   rules: string[];

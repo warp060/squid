@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { Instagram, ArrowUp, ShieldCheck } from 'lucide-react';
-import { NAV_LINKS, INSTAGRAM_URL, ORGANIZER } from '../data/content';
+import { ArrowUp, ShieldCheck } from 'lucide-react';
+import { NAV_LINKS, ORGANIZER } from '../data/content';
 
 const EVENT_SHORTCUTS = ['Paper Presentation', 'Mini Hackathon', 'Coding & Debugging', 'Shark Tank x SGC', 'Free Fire', 'IPL Auction'];
 
@@ -16,15 +16,6 @@ export default function Footer() {
             <p className="mt-4 max-w-xs text-[13.5px] leading-relaxed text-dim">
               Eight arenas. One national stage. Conducted by the {ORGANIZER} — built for the ones who refuse elimination.
             </p>
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-5 inline-flex items-center gap-2 border border-white/15 px-4 py-2.5 text-[12px] font-semibold text-dim transition-colors hover:border-neon/60 hover:text-neon"
-              aria-label="INTELLETTO-26 on Instagram"
-            >
-              <Instagram size={15} /> @revibe_events_
-            </a>
           </div>
 
           <nav aria-label="Footer quick links">

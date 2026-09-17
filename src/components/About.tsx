@@ -55,7 +55,7 @@ export default function About() {
           className="hud-border card-sheen mb-10 flex flex-col items-start justify-between gap-4 border-neon/30 bg-panel/75 p-5 sm:flex-row sm:items-center sm:p-6"
         >
           <div className="flex items-center gap-3.5">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xs border border-neon/50 bg-neon/15 shadow-[0_0_20px_rgba(255,46,126,0.3)]">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xs border border-neon/50 bg-neon/15 shadow-[0_0_20px_rgba(237,27,118,0.3)]">
               <BrainCircuit size={22} className="text-neon" />
             </span>
             <div>
