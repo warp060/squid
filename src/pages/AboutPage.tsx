@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import About from '../components/About';
-import StudentCoordinators from '../components/StudentCoordinators';
+
 
 const pageVariants = {
   initial: { opacity: 0, y: 24 },
@@ -19,7 +19,7 @@ export default function AboutPage() {
       className="pt-20"
     >
       <About />
-      <StudentCoordinators />
+
     </motion.div>
   );
 }

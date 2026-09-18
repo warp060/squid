@@ -28,7 +28,7 @@ const STATS = [
   { icon: Swords, value: 8, label: 'Competition Arenas', suffix: '' },
   { icon: Cpu, value: 4, label: 'Technical Stages', suffix: '' },
   { icon: Trophy, value: 4, label: 'Non-Technical Stages', suffix: '' },
-  { icon: Users, value: 2, label: 'Days of Action', suffix: '' },
+  { icon: Users, value: 1, label: 'Day of Action', suffix: '' },
 ];
 
 export default function About() {
@@ -107,26 +107,7 @@ export default function About() {
               rapid adaptation, and team synergy under pressure.
             </p>
 
-            {/* 3 Quick Highlight Cards */}
-            <div className="grid gap-3 pt-2 sm:grid-cols-2">
-              <div className="hud-border bg-panel/60 p-3.5">
-                <p className="font-grotesk flex items-center gap-2 text-[11px] font-bold tracking-[0.18em] text-neon uppercase">
-                  <Zap size={13} /> 4 Technical Arenas
-                </p>
-                <p className="font-grotesk mt-1 text-[12px] text-steel">
-                  AI Web Design · Prompt Clash · Technical Quiz · Paper & Poster
-                </p>
-              </div>
 
-              <div className="hud-border bg-panel/60 p-3.5">
-                <p className="font-grotesk flex items-center gap-2 text-[11px] font-bold tracking-[0.18em] text-sage uppercase">
-                  <Target size={13} /> 4 Non-Technical Arenas
-                </p>
-                <p className="font-grotesk mt-1 text-[12px] text-steel">
-                  Free Fire Esports · Quest of Mind · Squid Game · Film & Photo
-                </p>
-              </div>
-            </div>
 
             {/* Status Strip */}
             <div className="hud-border glass flex items-center gap-3 p-3.5">

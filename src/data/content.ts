@@ -1,8 +1,9 @@
-export const EVENT_TARGET_ISO = '2026-12-18T09:00:00+05:30';
-export const EVENT_DATES_LABEL = '18 — 19 · DEC · 2026';
+export const EVENT_TARGET_ISO = '2026-10-10T09:00:00+05:30';
+export const EVENT_DATES_LABEL = '10 · OCT · 2026';
 export const VENUE_SHORT = 'C. Abdul Hakeem College of Engineering & Technology · Vellore';
 export const ORGANIZER = 'Department of Artificial Intelligence and Machine Learning';
-export const INSTAGRAM_URL = 'https://www.instagram.com/revibe_events_/';
+export const INSTAGRAM_URL = '';
+export const INSTAGRAM_HANDLE = '';
 export const UNAVAILABLE = 'Details will be announced by the organizers.';
 export const SITE_NAME = 'INTELLETTO-26';
 

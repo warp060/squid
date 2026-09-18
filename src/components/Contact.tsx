@@ -1,9 +1,9 @@
 import { useState, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, Instagram, Send, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { MapPin, Phone, PhoneCall, Instagram, Send, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import SectionHeading from './SectionHeading';
 import { apiPost } from '../lib/api';
-import { VENUE_SHORT, INSTAGRAM_URL, ORGANIZER } from '../data/content';
+import { VENUE_SHORT, INSTAGRAM_URL, INSTAGRAM_HANDLE } from '../data/content';
 
 const inputCls =
   'w-full border border-white/10 bg-void/70 px-4 py-3.5 text-[14px] text-ivory placeholder:text-faint transition-colors focus:border-neon/60 focus:outline-none';
@@ -55,24 +55,87 @@ export default function Contact() {
             transition={{ duration: 0.55 }}
             className="space-y-4 lg:col-span-2"
           >
-            {[
-              { icon: MapPin, k: 'VENUE', v: VENUE_SHORT },
-              { icon: Phone, k: 'COORDINATORS', v: 'Contact numbers will be announced by the organizers.' },
-              { icon: Mail, k: 'EMAIL', v: 'Official email will be announced by the organizers.' },
-            ].map((c) => (
-              <div key={c.k} className="hud-border flex gap-4 bg-panel/70 p-5">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center border border-neon/30 bg-neon/10">
-                  <c.icon size={18} className="text-neon" />
+            {/* Venue */}
+            <div className="hud-border flex gap-4 bg-panel/70 p-5">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center border border-neon/30 bg-neon/10">
+                <MapPin size={18} className="text-neon" />
+              </span>
+              <div>
+                <p className="font-grotesk text-[10px] tracking-[0.3em] text-faint">VENUE</p>
+                <p className="font-grotesk mt-1 text-[13.5px] leading-relaxed font-medium text-ivory">{VENUE_SHORT}</p>
+              </div>
+            </div>
+
+            {/* Coordinators Contact Card */}
+            <div className="hud-border bg-panel/70 p-5">
+              <div className="mb-4 flex items-center gap-3 border-b border-white/10 pb-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-neon/30 bg-neon/10">
+                  <Phone size={17} className="text-neon" />
                 </span>
                 <div>
-                  <p className="font-grotesk text-[10px] tracking-[0.3em] text-faint">{c.k}</p>
-                  <p className="font-grotesk mt-1 text-[13.5px] leading-relaxed font-medium text-ivory">{c.v}</p>
+                  <p className="font-grotesk text-[10px] tracking-[0.3em] text-faint uppercase">COORDINATORS</p>
+                  <p className="font-display text-[13px] font-bold text-ivory">Direct Helpline & Enquiries</p>
                 </div>
               </div>
-            ))}
+
+              <div className="space-y-3.5">
+                {/* Faculty Coordinator */}
+                <div>
+                  <p className="font-grotesk mb-1.5 text-[10px] font-semibold tracking-[0.25em] text-neon uppercase">
+                    Faculty Coordinator
+                  </p>
+                  <div className="flex items-center justify-between gap-3 border border-white/10 bg-void/60 px-3.5 py-2.5 transition-colors hover:border-neon/40">
+                    <span className="font-grotesk text-[13px] font-medium text-ivory">
+                      Mr. Yoga Moorthy R
+                    </span>
+                    <a
+                      href="tel:+919952650475"
+                      className="flex h-8 w-8 shrink-0 items-center justify-center border border-neon/40 bg-neon/15 text-neon transition-all hover:scale-110 hover:bg-neon hover:text-white"
+                      title="Call Mr. Yoga Moorthy R"
+                      aria-label="Call Mr. Yoga Moorthy R"
+                    >
+                      <PhoneCall size={14} />
+                    </a>
+                  </div>
+                </div>
+
+                {/* Student Coordinators */}
+                <div>
+                  <p className="font-grotesk mb-1.5 text-[10px] font-semibold tracking-[0.25em] text-neon uppercase">
+                    Student Coordinators
+                  </p>
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    {[
+                      { name: 'Iman Shihad', phone: '+918056447446' },
+                      { name: 'Naeemullah.R', phone: '+918667085106' },
+                      { name: 'Jayaprakash.B', phone: '+919361732287' },
+                      { name: 'Rizwan', phone: '+919629962211' },
+                    ].map((sc) => (
+                      <div
+                        key={sc.name}
+                        className="flex items-center justify-between gap-2 border border-white/10 bg-void/60 px-3 py-2 transition-colors hover:border-neon/40"
+                      >
+                        <span className="font-grotesk truncate text-[12.5px] font-medium text-ivory">
+                          {sc.name}
+                        </span>
+                        <a
+                          href={`tel:${sc.phone}`}
+                          className="flex h-7 w-7 shrink-0 items-center justify-center border border-neon/40 bg-neon/15 text-neon transition-all hover:scale-110 hover:bg-neon hover:text-white"
+                          title={`Call ${sc.name}`}
+                          aria-label={`Call ${sc.name}`}
+                        >
+                          <PhoneCall size={13} />
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <a
-              href={INSTAGRAM_URL}
-              target="_blank"
+              href={INSTAGRAM_URL || '#'}
+              target={INSTAGRAM_URL ? '_blank' : undefined}
               rel="noreferrer"
               className="hud-border group flex items-center gap-4 bg-panel/70 p-5 transition-colors hover:border-neon/50"
             >
@@ -81,22 +144,11 @@ export default function Contact() {
               </span>
               <div className="flex-1">
                 <p className="font-grotesk text-[10px] tracking-[0.3em] text-faint">OFFICIAL CHANNEL</p>
-                <p className="font-grotesk mt-1 text-[13.5px] font-medium text-ivory group-hover:text-neon">@revibe_events_ on Instagram</p>
+                <p className="font-grotesk mt-1 text-[13.5px] font-medium text-ivory group-hover:text-neon">
+                  {INSTAGRAM_HANDLE || (INSTAGRAM_URL ? 'Follow on Instagram' : 'To be announced')}
+                </p>
               </div>
             </a>
-            <p className="font-grotesk text-[11px] leading-relaxed tracking-[0.2em] text-faint uppercase">
-              Organized by {ORGANIZER}
-            </p>
-            <div className="hud-border group relative overflow-hidden">
-              <img
-                src="/media/g-campus.jpg"
-                alt="Symposium halls at the INTELLETTO-26 venue"
-                loading="lazy"
-                className="aspect-[16/8] w-full object-cover saturate-[0.6] transition-all duration-500 group-hover:scale-[1.03] group-hover:saturate-100"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-void/80 via-transparent to-transparent" aria-hidden="true" />
-              <p className="font-grotesk absolute bottom-0 left-0 px-4 py-3 text-[10px] tracking-[0.3em] text-steel uppercase">Command HQ · Vellore</p>
-            </div>
           </motion.div>
 
           <motion.div

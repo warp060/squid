@@ -30,28 +30,10 @@ export default function Footer() {
               ))}
             </ul>
           </nav>
-
-          <nav aria-label="Footer events">
-            <p className="font-grotesk text-[11px] font-bold tracking-[0.3em] text-ivory uppercase">Top arenas</p>
-            <ul className="mt-4 space-y-2.5">
-              {EVENT_SHORTCUTS.map((e) => (
-                <li key={e}>
-                  <Link to="/events" className="cursor-pointer text-[13.5px] text-dim transition-colors hover:text-neon">
-                    {e}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <div>
-            <p className="font-grotesk text-[11px] font-bold tracking-[0.3em] text-ivory uppercase">Enter the arena</p>
-            <p className="mt-4 text-[13.5px] leading-relaxed text-dim">
-              Player registrations are open. Claim your slot before the gates close.
-            </p>
+          <div className="flex flex-col items-center sm:items-start lg:items-center">
             <Link
               to="/register"
-              className="clip-btn font-grotesk mt-5 inline-flex items-center gap-2 bg-neon px-6 py-3 text-[12px] font-bold tracking-[0.2em] text-white uppercase hover:bg-crimson"
+              className="clip-btn font-grotesk inline-flex items-center gap-2 bg-neon px-6 py-3 text-[12px] font-bold tracking-[0.2em] text-white uppercase hover:bg-crimson"
             >
               Register now
             </Link>
@@ -62,6 +44,8 @@ export default function Footer() {
               <ArrowUp size={14} /> Back to top
             </button>
           </div>
+
+
         </div>
 
         <p className="font-display pointer-events-none mt-12 text-center text-[clamp(2rem,8.5vw,6rem)] leading-none font-black tracking-tight text-white/[0.035] select-none" aria-hidden="true">
