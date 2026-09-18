@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Phone, PhoneCall, Instagram, Send, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { MapPin, Phone, PhoneCall, Instagram, ExternalLink, Send, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import SectionHeading from './SectionHeading';
 import { apiPost } from '../lib/api';
 import { VENUE_SHORT, INSTAGRAM_URL, INSTAGRAM_HANDLE } from '../data/content';
@@ -134,19 +134,29 @@ export default function Contact() {
             </div>
 
             <a
-              href={INSTAGRAM_URL || '#'}
-              target={INSTAGRAM_URL ? '_blank' : undefined}
+              href={INSTAGRAM_URL}
+              target="_blank"
               rel="noreferrer"
-              className="hud-border group flex items-center gap-4 bg-panel/70 p-5 transition-colors hover:border-neon/50"
+              className="hud-border group relative flex items-center justify-between gap-4 overflow-hidden bg-panel/70 p-5 transition-all duration-300 hover:border-neon/60 hover:bg-panel hover:shadow-[0_0_20px_rgba(255,0,98,0.15)]"
             >
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center border border-neon/30 bg-neon/10">
-                <Instagram size={18} className="text-neon" />
-              </span>
-              <div className="flex-1">
-                <p className="font-grotesk text-[10px] tracking-[0.3em] text-faint">OFFICIAL CHANNEL</p>
-                <p className="font-grotesk mt-1 text-[13.5px] font-medium text-ivory group-hover:text-neon">
-                  {INSTAGRAM_HANDLE || (INSTAGRAM_URL ? 'Follow on Instagram' : 'To be announced')}
-                </p>
+              <div className="flex items-center gap-4">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center border border-neon/30 bg-neon/10 transition-all duration-300 group-hover:scale-105 group-hover:border-neon group-hover:bg-neon/20">
+                  <Instagram size={19} className="text-neon" />
+                </span>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <p className="font-grotesk text-[10px] font-bold tracking-[0.3em] text-faint uppercase">OFFICIAL INSTAGRAM</p>
+                  </div>
+                  <p className="font-grotesk mt-0.5 text-[14px] font-semibold text-ivory transition-colors group-hover:text-neon">
+                    {INSTAGRAM_HANDLE}
+                  </p>
+                  <p className="text-[11px] text-dim">Follow for updates, announcements & live highlights</p>
+                </div>
+              </div>
+              <div className="hidden sm:flex items-center gap-1.5 border border-neon/30 bg-neon/10 px-3 py-1.5 text-[11px] font-bold tracking-wider text-neon uppercase transition-colors group-hover:bg-neon group-hover:text-white">
+                <span>Follow</span>
+                <ExternalLink size={12} />
               </div>
             </a>
           </motion.div>

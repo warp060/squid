@@ -2,8 +2,8 @@ export const EVENT_TARGET_ISO = '2026-10-10T09:00:00+05:30';
 export const EVENT_DATES_LABEL = '10 · OCT · 2026';
 export const VENUE_SHORT = 'C. Abdul Hakeem College of Engineering & Technology · Vellore';
 export const ORGANIZER = 'Department of Artificial Intelligence and Machine Learning';
-export const INSTAGRAM_URL = '';
-export const INSTAGRAM_HANDLE = '';
+export const INSTAGRAM_URL = 'https://www.instagram.com/aiml_cahcet?stkn=MTVqZDNuNGRxaTV5dg==';
+export const INSTAGRAM_HANDLE = '@aiml_cahcet';
 export const UNAVAILABLE = 'Details will be announced by the organizers.';
 export const SITE_NAME = 'INTELLETTO-26';
 
