@@ -95,7 +95,7 @@ export default function About() {
             className="space-y-4 text-[15px] leading-relaxed text-dim"
           >
             <p>
-              <strong className="text-ivory">INTELLETTO-26</strong> is a national-level technical symposium proudly
+              <strong className="text-ivory">INTELLETTO-26</strong> is a national-level symposium proudly
               conducted by the <strong className="text-ivory">Department of Artificial Intelligence and Machine Learning</strong>.
               Designed as an arena of high-caliber intellect, it invites the sharpest student minds from colleges across
               India to compete, code, strategize, and conquer.
