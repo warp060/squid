@@ -14,9 +14,7 @@ import {
 } from './services.js';
 import { isTiDBConfigured } from './tidb-client.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -126,7 +124,7 @@ app.get('/api/registrations', async (req, res) => {
 
 
 // Start Server if executed directly
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.env.NODE_ENV !== 'test' && !process.env.NETLIFY && !process.env.AWS_LAMBDA_FUNCTION_NAME && !process.env.LAMBDA_TASK_ROOT) {
   app.listen(PORT, () => {
     console.log(`\n==================================================`);
     console.log(`🚀 INTELLETTO-26 Backend Server running on port ${PORT}`);
