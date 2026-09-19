@@ -126,7 +126,7 @@ app.get('/api/registrations', async (req, res) => {
 
 
 // Start Server if executed directly
-if (process.env.NODE_ENV !== 'test') {
+if (import.meta.url === `file://${process.argv[1]}`) {
   app.listen(PORT, () => {
     console.log(`\n==================================================`);
     console.log(`🚀 INTELLETTO-26 Backend Server running on port ${PORT}`);
