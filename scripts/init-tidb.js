@@ -1,18 +1,17 @@
-import type { ArenaEvent } from '../lib/api';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+import mysql from 'mysql2/promise';
 
-export interface CoordinatorInfo {
-  name: string;
-  isLead: boolean;
-}
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const rootDir = path.resolve(__dirname, '..');
 
-export interface OfficialEvent extends ArenaEvent {
-  coordinators: string[];
-  team: string[];
-}
+dotenv.config({ path: path.resolve(rootDir, '.env') });
 
-export const OFFICIAL_EVENTS: OfficialEvent[] = [
+const SEED_EVENTS = [
   {
-    id: 1,
     slug: 'technical-quiz',
     name: 'Technical Quiz',
     category: 'technical',
@@ -37,11 +36,8 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
     venue_hint: 'Main Seminar Hall',
     fee: '₹50/- per head · ₹100/- per team',
     sort_order: 1,
-    coordinators: ['Hasni Mubarak', 'Sanjana V'],
-    team: ['Azeez', 'Nithish Kumar', 'Vaishnavi'],
   },
   {
-    id: 2,
     slug: 'ai-web-design',
     name: 'AI – Web Design',
     category: 'technical',
@@ -66,11 +62,8 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
     venue_hint: 'Advanced Computing Lab 1',
     fee: '₹50/- per head · ₹100/- per team',
     sort_order: 2,
-    coordinators: ['Fareeduddeen', 'Sumaiya J'],
-    team: ['Mohammed Ameen', 'Mohammed Affan', 'Shalini'],
   },
   {
-    id: 3,
     slug: 'paper-presentation',
     name: 'Paper Presentation / Poster',
     category: 'technical',
@@ -94,11 +87,8 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
     venue_hint: 'Conference Auditorium B',
     fee: '₹100/- per head · ₹150/- per team',
     sort_order: 3,
-    coordinators: ['Jagan', 'Rasika'],
-    team: ['Vijay', 'Falak', 'Harish Priyan'],
   },
   {
-    id: 4,
     slug: 'prompt-clash',
     name: 'Prompt Clash',
     category: 'technical',
@@ -122,11 +112,8 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
     venue_hint: 'AI & Data Science Lab',
     fee: '₹50/- per head · ₹100/- per team',
     sort_order: 4,
-    coordinators: ['Nizzamuddin', 'Yuvarani'],
-    team: ['Evinesh', 'Priyanka V.'],
   },
   {
-    id: 5,
     slug: 'free-fire',
     name: 'E-Sports (Free Fire)',
     category: 'non-technical',
@@ -150,11 +137,8 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
     venue_hint: 'E-Sports Arena / Hall 3',
     fee: '₹200/- per team',
     sort_order: 5,
-    coordinators: ['Sabarivasan'],
-    team: ['Shanmugam', 'Imran', 'Yukesh'],
   },
   {
-    id: 6,
     slug: 'quest-of-mind',
     name: 'Quest of Mind',
     category: 'non-technical',
@@ -178,11 +162,8 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
     venue_hint: 'Mechanical Block Seminar Room',
     fee: '₹50/- per head · ₹100/- per team',
     sort_order: 6,
-    coordinators: ['Arif', 'Priyanka I'],
-    team: ['Aiman', 'Pooja Shree'],
   },
   {
-    id: 7,
     slug: 'squid-game',
     name: 'Squid Game',
     category: 'non-technical',
@@ -206,11 +187,8 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
     venue_hint: 'Open Air Amphitheatre / Quad',
     fee: '₹50/- per head · ₹100/- per team',
     sort_order: 7,
-    coordinators: ['Emad Ur Rahman', 'Samyuktha'],
-    team: ['Mohammed Amaan', 'Hemasri B'],
   },
   {
-    id: 8,
     slug: 'filmography-photography',
     name: 'Filmography / Photography',
     category: 'non-technical',
@@ -234,7 +212,172 @@ export const OFFICIAL_EVENTS: OfficialEvent[] = [
     venue_hint: 'Media & Arts Pavilion',
     fee: '₹150/- per team',
     sort_order: 8,
-    coordinators: ['Ashiq', 'Sai'],
-    team: [],
   },
 ];
+
+const SEED_FAQS = [
+  {
+    question: 'What is INTELLETTO-26?',
+    answer: 'INTELLETTO-26 is a national level technical symposium hosted by the Department of Artificial Intelligence & Machine Learning, featuring 8 competitive arenas across technical and non-technical divisions.',
+    sort_order: 1,
+  },
+  {
+    question: 'Who can participate?',
+    answer: 'The symposium is open to undergraduate and postgraduate students from Engineering, Technology, Polytechnic, and Arts & Science colleges across India.',
+    sort_order: 2,
+  },
+  {
+    question: 'How do I register?',
+    answer: 'Use the Player Registration page on this portal: pick your arenas, provide your academic & contact details, confirm your registration, and receive your unique Player Tag (IN26-XXXX).',
+    sort_order: 3,
+  },
+  {
+    question: 'Can I register for multiple events?',
+    answer: 'Yes! You can choose multiple technical and non-technical arenas during registration as long as their stage schedules do not conflict.',
+    sort_order: 4,
+  },
+  {
+    question: 'What should I bring on event day?',
+    answer: 'Bring a valid college student ID card, your registration confirmation / Player Tag, and laptops/chargers if participating in code/web/AI arenas.',
+    sort_order: 5,
+  },
+];
+
+const SEED_GALLERY = [
+  { src: '/media/ev26-7.jpg', title: "Engineer's Vision 2026 Inaugural", caption: 'Auditorium Conclave & Symposium Assembly', sort_order: 1 },
+  { src: '/media/ev26-1.jpg', title: 'AI Autonomous Rescue Robot', caption: 'Podium Defence · Robotics Innovation', sort_order: 2 },
+  { src: '/media/ev26-2.jpg', title: 'Faculty Keynote & Mentorship', caption: 'Department Dignitaries & Organizers Address', sort_order: 3 },
+  { src: '/media/ev26-3.jpg', title: 'Project OPTIK AI', caption: 'Rural Communities Computer Vision', sort_order: 4 },
+  { src: '/media/ev26-4.jpg', title: 'ReVive Earth Clean Energy', caption: 'Sustainable Tech & Green Innovations', sort_order: 5 },
+  { src: '/media/ev26-5.jpg', title: 'MediCura AI Healthcare', caption: 'Intelligent Medical Diagnostic Architecture', sort_order: 6 },
+];
+
+const SEED_SCHEDULE = [
+  { day_label: 'DAY 01', start_time: '09:00 AM', end_time: '10:00 AM', title: 'Inaugural Protocol & Keynote Address', description: 'Assembly at the Main Auditorium with department dignitaries, faculty coordinators, and keynote remarks.', venue_hint: 'Main Seminar Hall', sort_order: 1 },
+  { day_label: 'DAY 01', start_time: '10:15 AM', end_time: '01:00 PM', title: 'Arena Combat: Round 1 Prelims', description: 'Simultaneous deployment across Technical Quiz, AI Web Design, Paper Presentation, and Prompt Clash.', venue_hint: 'Department Labs & Seminar Blocks', sort_order: 2 },
+  { day_label: 'DAY 01', start_time: '01:00 PM', end_time: '02:00 PM', title: 'Lunch & Tactical Debrief', description: 'Midday recharge and coordinator briefings for qualified stage finalists.', venue_hint: 'Campus Dining Pavilion', sort_order: 3 },
+  { day_label: 'DAY 01', start_time: '02:00 PM', end_time: '04:30 PM', title: 'Non-Technical Arenas & Finals Showdown', description: 'Free Fire custom rooms, Quest of Mind decoding, Squid Game rounds, and photo showcase evaluation.', venue_hint: 'Amphitheatre & Media Hall', sort_order: 4 },
+  { day_label: 'DAY 01', start_time: '04:45 PM', end_time: '05:45 PM', title: 'Grand Valedictory & Prize Distribution', description: 'Trophy presentations, cash awards, and coordinator recognition ceremony.', venue_hint: 'Main Stage Auditorium', sort_order: 5 },
+];
+
+async function initTiDB() {
+  console.log('⚡ INTELLETTO-26 // TiDB Cloud Initializer');
+  console.log('--------------------------------------------------');
+
+  const url = process.env.DATABASE_URL || process.env.TIDB_DATABASE_URL;
+  const host = process.env.TIDB_HOST;
+  const user = process.env.TIDB_USER;
+  const password = process.env.TIDB_PASSWORD || '';
+  const database = process.env.TIDB_DATABASE || 'test';
+  const port = Number(process.env.TIDB_PORT) || 4000;
+
+  if (!url && (!host || !user)) {
+    console.error('❌ Error: TiDB credentials missing in .env!');
+    console.error('Please configure TIDB_HOST, TIDB_USER, TIDB_PASSWORD in .env or provide DATABASE_URL.');
+    process.exit(1);
+  }
+
+  console.log(`Connecting to TiDB Cloud cluster ${host ? `at ${host}:${port}` : 'via connection URL'}...`);
+
+  const ssl = process.env.TIDB_ENABLE_SSL === 'false' ? undefined : {
+    minVersion: 'TLSv1.2',
+    rejectUnauthorized: true,
+  };
+
+  const connection = await mysql.createConnection(
+    url ? { uri: url, ssl, multipleStatements: true } : { host, port, user, password, database, ssl, multipleStatements: true }
+  );
+
+  console.log('✓ Successfully connected to TiDB Cloud cluster!');
+
+  // 1. Run schema DDL
+  const schemaPath = path.resolve(rootDir, 'db/schema.sql');
+  console.log(`Applying schema from ${schemaPath}...`);
+  const schemaSql = fs.readFileSync(schemaPath, 'utf8');
+
+  // Clean SQL comments before splitting into separate statements
+  const cleanSql = schemaSql
+    .split('\n')
+    .filter((line) => !line.trim().startsWith('--'))
+    .join('\n');
+
+  const statements = cleanSql
+    .split(';')
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0);
+
+  for (const stmt of statements) {
+    await connection.query(stmt);
+  }
+  console.log(`✓ Applied ${statements.length} DDL statements successfully.`);
+
+  // 2. Seed Events
+  console.log('Seeding official events...');
+  for (const ev of SEED_EVENTS) {
+    await connection.execute(
+      `INSERT INTO events (slug, name, category, tagline, description, icon, stage_code, team_size, member_limit, per_head_fee, team_fee, prize, duration, eligibility, rules, venue_hint, fee, sort_order)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+       ON DUPLICATE KEY UPDATE
+         name = VALUES(name), category = VALUES(category), tagline = VALUES(tagline),
+         description = VALUES(description), icon = VALUES(icon), stage_code = VALUES(stage_code),
+         team_size = VALUES(team_size), member_limit = VALUES(member_limit), per_head_fee = VALUES(per_head_fee),
+         team_fee = VALUES(team_fee), prize = VALUES(prize), duration = VALUES(duration),
+         eligibility = VALUES(eligibility), rules = VALUES(rules), venue_hint = VALUES(venue_hint),
+         fee = VALUES(fee), sort_order = VALUES(sort_order)`,
+      [
+        ev.slug, ev.name, ev.category, ev.tagline, ev.description, ev.icon, ev.stage_code,
+        ev.team_size, ev.member_limit, ev.per_head_fee, ev.team_fee, ev.prize, ev.duration,
+        ev.eligibility, JSON.stringify(ev.rules), ev.venue_hint, ev.fee, ev.sort_order,
+      ]
+    );
+  }
+  console.log(`✓ Seeded ${SEED_EVENTS.length} arena events.`);
+
+  // 3. Seed FAQs
+  console.log('Seeding FAQs...');
+  for (const f of SEED_FAQS) {
+    const [existing] = await connection.execute('SELECT id FROM faqs WHERE question = ? LIMIT 1', [f.question]);
+    if (!existing.length) {
+      await connection.execute(
+        'INSERT INTO faqs (question, answer, sort_order) VALUES (?, ?, ?)',
+        [f.question, f.answer, f.sort_order]
+      );
+    }
+  }
+  console.log(`✓ Seeded ${SEED_FAQS.length} FAQs.`);
+
+  // 4. Seed Gallery
+  console.log('Seeding gallery frames...');
+  for (const g of SEED_GALLERY) {
+    const [existing] = await connection.execute('SELECT id FROM gallery_items WHERE src = ? LIMIT 1', [g.src]);
+    if (!existing.length) {
+      await connection.execute(
+        'INSERT INTO gallery_items (src, title, caption, sort_order) VALUES (?, ?, ?, ?)',
+        [g.src, g.title, g.caption, g.sort_order]
+      );
+    }
+  }
+  console.log(`✓ Seeded ${SEED_GALLERY.length} gallery items.`);
+
+  // 5. Seed Schedule
+  console.log('Seeding symposium timeline...');
+  for (const s of SEED_SCHEDULE) {
+    const [existing] = await connection.execute('SELECT id FROM schedule_items WHERE title = ? AND day_label = ? LIMIT 1', [s.title, s.day_label]);
+    if (!existing.length) {
+      await connection.execute(
+        'INSERT INTO schedule_items (day_label, start_time, end_time, title, description, venue_hint, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [s.day_label, s.start_time, s.end_time, s.title, s.description, s.venue_hint, s.sort_order]
+      );
+    }
+  }
+  console.log(`✓ Seeded ${SEED_SCHEDULE.length} schedule timeline entries.`);
+
+  console.log('--------------------------------------------------');
+  console.log('🎉 TiDB Cloud database initialized and seeded successfully!');
+  await connection.end();
+}
+
+initTiDB().catch((err) => {
+  console.error('❌ Failed to initialize TiDB:', err.message);
+  process.exit(1);
+});

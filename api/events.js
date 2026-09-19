@@ -1,4 +1,4 @@
-import supabase from './db-client.js';
+import { getEventsService } from '../server/services.js';
 
 const cors = (res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -12,17 +12,10 @@ export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
-    const { slug, category } = req.query;
-    let query = supabase.from('events').select('*').order('sort_order', { ascending: true });
-    if (slug) query = query.eq('slug', String(slug));
-    if (category) query = query.eq('category', String(category));
-    const { data, error } = await query;
-    if (error) throw error;
-    if (slug) {
-      if (!data || !data.length) return res.status(404).json({ error: 'Event not found' });
-      return res.status(200).json(data[0]);
-    }
-    return res.status(200).json(data || []);
+    const { slug, category } = req.query || {};
+    const events = await getEventsService({ slug, category });
+    if (slug && !events.length) return res.status(404).json({ error: 'Event not found' });
+    return res.status(200).json(slug ? events[0] : events);
   } catch (err) {
     console.error('events API error:', err.message);
     return res.status(500).json({ error: 'Unable to load events right now.' });

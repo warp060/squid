@@ -6,8 +6,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 import {
   ChevronLeft, ChevronRight, Loader2, CheckCircle2, AlertCircle, Plus, Trash2,
   Swords, User, GraduationCap, PhoneCall, Users, ClipboardCheck, PartyPopper,
+  MessageCircle, Send, Copy, ShieldCheck, CheckCheck, Printer, Check,
 } from 'lucide-react';
 import { apiGet, apiPost, type ArenaEvent } from '../lib/api';
+import { buildRegistrationWhatsAppUrl } from '../data/content';
+import { OFFICIAL_EVENTS } from '../data/eventsData';
 
 const phoneRegex = /^[+]?[\d\s-]{10,16}$/;
 
@@ -64,9 +67,9 @@ interface SuccessData {
   player_tag: string;
   full_name: string;
   event_slugs: string[];
+  formData: FormValues;
+  coordinators?: { event: string; phone: string; displayPhone: string }[];
 }
-
-import { OFFICIAL_EVENTS } from '../data/eventsData';
 
 export default function RegisterWizard() {
   const [step, setStep] = useState(0);
@@ -75,6 +78,7 @@ export default function RegisterWizard() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [success, setSuccess] = useState<SuccessData | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(schema) as Resolver<FormValues>,
@@ -137,10 +141,36 @@ export default function RegisterWizard() {
     setSubmitting(true);
     setSubmitError('');
     try {
-      const data = await apiPost<SuccessData & { ok: boolean }>('/api/register', getValues());
-      setSuccess({ player_tag: data.player_tag, full_name: data.full_name, event_slugs: data.event_slugs });
+      const values = getValues();
+      const data = await apiPost<{
+        ok: boolean;
+        player_tag: string;
+        full_name: string;
+        event_slugs: string[];
+        coordinators?: { event: string; phone: string; displayPhone: string }[];
+      }>('/api/register', values);
+      setSuccess({
+        player_tag: data.player_tag,
+        full_name: data.full_name,
+        event_slugs: data.event_slugs,
+        formData: values,
+        coordinators: data.coordinators,
+      });
       setStep(6);
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Trigger instant WhatsApp dispatch for the first selected event
+      if (data.event_slugs && data.event_slugs.length > 0) {
+        const firstDispatch = buildRegistrationWhatsAppUrl(data.event_slugs[0], {
+          player_tag: data.player_tag,
+          ...values,
+        });
+        if (firstDispatch?.url) {
+          try {
+            window.open(firstDispatch.url, '_blank');
+          } catch { }
+        }
+      }
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : 'Registration failed. Please try again.');
     } finally {
@@ -192,9 +222,8 @@ export default function RegisterWizard() {
                       key={e.slug}
                       onClick={() => toggleEvent(e.slug)}
                       aria-pressed={on}
-                      className={`cursor-pointer border p-4 text-left transition-all ${
-                        on ? 'border-neon bg-neon/10 shadow-[0_0_18px_rgba(237,27,118,0.3)]' : 'hud-border bg-panel/60 hover:border-white/25'
-                      }`}
+                      className={`cursor-pointer border p-4 text-left transition-all ${on ? 'border-neon bg-neon/10 shadow-[0_0_18px_rgba(237,27,118,0.3)]' : 'hud-border bg-panel/60 hover:border-white/25'
+                        }`}
                     >
                       <span className="flex items-center justify-between gap-2">
                         <span className="font-grotesk text-[10px] tracking-[0.28em] text-faint">{e.stage_code}</span>
@@ -375,26 +404,193 @@ export default function RegisterWizard() {
 
           {step === 6 && success && (
             <div className="py-6 text-center" role="status">
-              <motion.div initial={{ scale: 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', stiffness: 200, damping: 14 }}>
-                <CheckCircle2 size={56} className="mx-auto text-sage" style={{ filter: 'drop-shadow(0 0 18px rgba(111,154,126,0.6))' }} />
-              </motion.div>
-              <h2 className="font-display mt-6 text-2xl font-black text-ivory sm:text-3xl">YOU ARE <span className="text-neon text-glow-pink">IN THE ARENA</span></h2>
-              <p className="mt-2 text-sm text-dim">Welcome, {success.full_name}. Your player dossier is registered.</p>
-              <div className="hud-border mx-auto mt-8 max-w-md bg-void/60 p-6">
-                <p className="font-grotesk text-[10px] tracking-[0.35em] text-faint">PLAYER TAG</p>
-                <p className="font-display mt-2 text-3xl font-black tracking-wider text-neon text-glow-pink">{success.player_tag}</p>
-                <div className="mt-4 border-t border-white/10 pt-4 text-left">
-                  <p className="font-grotesk text-[10px] tracking-[0.3em] text-faint">REGISTERED ARENAS</p>
-                  <ul className="mt-2 space-y-1">
-                    {pickedNames.map((n) => (
-                      <li key={n} className="font-grotesk text-[13px] text-ivory">— {n}</li>
-                    ))}
-                  </ul>
+              <div>
+                <motion.div
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: 'spring', stiffness: 220, damping: 14 }}
+                  className="relative mx-auto flex h-20 w-20 items-center justify-center"
+                >
+                  <div className="absolute inset-0 rounded-full bg-emerald-500/25 blur-xl animate-pulse" />
+                  <div className="relative flex h-16 w-16 items-center justify-center rounded-full border-2 border-emerald-400 bg-emerald-950/80 shadow-[0_0_30px_rgba(37,211,102,0.5)]">
+                    <CheckCircle2 size={38} className="text-[#25D366]" />
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 }}
+                >
+                  <h2 className="font-display mt-6 text-2xl font-black text-ivory sm:text-3xl tracking-wide">
+                    YOU HAVE <span className="text-[#25D366]" style={{ textShadow: '0 0 24px rgba(37,211,102,0.6)' }}>SUCCESSFULLY REGISTERED!</span>
+                  </h2>
+                  <p className="mt-2 text-sm text-dim">
+                    Official arena entry granted! Your registration has been confirmed in TiDB Cloud.
+                  </p>
+
+                  <div className="mx-auto mt-4 inline-flex items-center gap-2 rounded-full border border-emerald-500/50 bg-emerald-500/15 px-4 py-1.5 font-grotesk text-[11px] font-bold tracking-widest text-[#25D366] uppercase shadow-[0_0_18px_rgba(37,211,102,0.25)]">
+                    <ShieldCheck size={15} /> Confirmed in System · TiDB Cloud Cleared
+                  </div>
+                </motion.div>
+
+                {/* Official Player Pass Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.25 }}
+                  className="hud-border mx-auto mt-8 max-w-lg border-emerald-500/40 bg-void/85 p-6 text-left shadow-[0_0_40px_rgba(37,211,102,0.18)]"
+                >
+                  <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                    <div>
+                      <p className="font-grotesk text-[10px] tracking-[0.35em] text-[#25D366] uppercase font-bold">
+                        INTELLETTO-26 // ARENA PASS
+                      </p>
+                      <p className="font-display mt-1 text-3xl font-black tracking-wider text-ivory">
+                        {success.player_tag}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <span className="font-grotesk inline-flex items-center gap-1 rounded-xs border border-emerald-500/50 bg-emerald-500/20 px-2.5 py-1 text-[10px] font-bold tracking-widest text-emerald-400 uppercase">
+                        <CheckCheck size={12} /> CONFIRMED
+                      </span>
+                      <p className="font-grotesk mt-1 text-[10px] text-faint uppercase">TiDB Cloud Live</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 grid gap-3 text-[13px] sm:grid-cols-2">
+                    <div>
+                      <p className="font-grotesk text-[10px] tracking-[0.25em] text-faint uppercase">Student Name</p>
+                      <p className="mt-0.5 font-semibold text-ivory">{success.full_name}</p>
+                    </div>
+                    <div>
+                      <p className="font-grotesk text-[10px] tracking-[0.25em] text-faint uppercase">Phone</p>
+                      <p className="mt-0.5 font-semibold text-ivory">{success.formData.phone}</p>
+                    </div>
+                    <div className="sm:col-span-2">
+                      <p className="font-grotesk text-[10px] tracking-[0.25em] text-faint uppercase">College & Department</p>
+                      <p className="mt-0.5 font-semibold text-ivory">{success.formData.college}</p>
+                      <p className="text-[12px] text-dim">{success.formData.department} · {success.formData.year_of_study}</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 border-t border-white/10 pt-4">
+                    <p className="font-grotesk text-[10px] tracking-[0.3em] text-faint uppercase">CONFIRMED ARENAS</p>
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {pickedNames.map((n) => (
+                        <span
+                          key={n}
+                          className="font-grotesk inline-block border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-bold tracking-wider text-ivory uppercase"
+                        >
+                          ✓ {n}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {success.formData.team_name && (
+                    <div className="mt-4 border-t border-white/10 pt-3">
+                      <p className="font-grotesk text-[10px] tracking-[0.25em] text-faint uppercase">Squad Name</p>
+                      <p className="mt-0.5 font-semibold text-ivory">{success.formData.team_name}</p>
+                    </div>
+                  )}
+
+                  {/* Authorized Stamp */}
+                  <div className="mt-5 border-t border-dashed border-white/15 pt-4 flex items-center justify-between text-[11px] text-steel">
+                    <span className="font-grotesk tracking-widest uppercase">
+                      Dept. of AIML · CAHCET
+                    </span>
+                    <span className="font-grotesk font-bold text-emerald-400 uppercase">
+                      ✓ Entry Validated
+                    </span>
+                  </div>
+                </motion.div>
+
+                {/* Action toolbar */}
+                <div className="mx-auto mt-6 flex max-w-lg flex-wrap items-center justify-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => window.print()}
+                    className="font-grotesk inline-flex cursor-pointer items-center gap-1.5 border border-white/20 bg-void/60 px-5 py-2.5 text-[11.5px] font-bold tracking-wider text-ivory uppercase transition-colors hover:border-white/40"
+                  >
+                    <Printer size={13} /> Print Arena Pass
+                  </button>
+                </div>
+
+                <p className="font-grotesk mx-auto mt-4 max-w-md text-[12px] leading-relaxed tracking-wide text-faint">
+                  Screenshot or print this pass. Present your Player Tag at the physical registration desk on event day.
+                </p>
+
+                {/* WhatsApp Coordinator Forwarding Section */}
+                <div className="hud-border mx-auto mt-8 max-w-lg border-emerald-500/40 bg-panel/80 p-6 text-left shadow-[0_0_30px_rgba(37,211,102,0.18)]">
+                  <div className="flex items-center gap-3 border-b border-white/10 pb-3">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-emerald-500/50 bg-emerald-500/20 text-[#25D366]">
+                      <MessageCircle size={18} />
+                    </span>
+                    <div>
+                      <h3 className="font-display text-[14px] font-bold tracking-wider text-ivory uppercase">
+                        Send Registration to Event Coordinator
+                      </h3>
+                      <p className="font-grotesk text-[11px] text-dim">
+                        Connect directly with your event handler on WhatsApp to submit your registration details.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 space-y-2.5">
+                    {success.event_slugs.map((slug) => {
+                      const dispatch = buildRegistrationWhatsAppUrl(slug, {
+                        player_tag: success.player_tag,
+                        ...success.formData,
+                      });
+                      if (!dispatch) return null;
+
+                      return (
+                        <a
+                          key={slug}
+                          href={dispatch.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group flex items-center justify-between gap-3 border border-emerald-500/40 bg-emerald-500/10 p-3.5 transition-all hover:border-emerald-400 hover:bg-emerald-500/20 hover:shadow-[0_0_16px_rgba(37,211,102,0.3)]"
+                        >
+                          <div className="min-w-0 flex-1">
+                            <p className="font-grotesk text-[10px] font-bold tracking-[0.18em] text-[#25D366] uppercase">
+                              {dispatch.eventName} Coordinator
+                            </p>
+                            <p className="font-grotesk mt-0.5 text-[12px] font-semibold text-ivory">
+                              📱 +91 {dispatch.displayPhone}
+                            </p>
+                          </div>
+                          <span className="font-grotesk inline-flex shrink-0 items-center gap-1.5 bg-[#25D366] px-3.5 py-1.5 text-[11px] font-bold tracking-wider text-black uppercase transition-transform group-hover:scale-105">
+                            <Send size={12} /> Send on WhatsApp
+                          </span>
+                        </a>
+                      );
+                    })}
+                  </div>
+
+                  <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3">
+                    <span className="font-grotesk text-[10px] tracking-wider text-faint uppercase">
+                      Auto-formatted registration dossier
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const text = success.event_slugs.map((slug) => {
+                          const d = buildRegistrationWhatsAppUrl(slug, { player_tag: success.player_tag, ...success.formData });
+                          return d ? decodeURIComponent(d.url.split('text=')[1] || '') : '';
+                        }).filter(Boolean).join('\n\n');
+                        navigator.clipboard.writeText(text);
+                        setCopied(true);
+                        setTimeout(() => setCopied(false), 2500);
+                      }}
+                      className="font-grotesk inline-flex cursor-pointer items-center gap-1 text-[11px] font-semibold tracking-wider text-dim uppercase transition-colors hover:text-ivory"
+                    >
+                      <Copy size={12} /> {copied ? 'Copied Dossier!' : 'Copy Dossier'}
+                    </button>
+                  </div>
                 </div>
               </div>
-              <p className="font-grotesk mx-auto mt-6 max-w-md text-[12px] leading-relaxed tracking-wide text-faint">
-                Screenshot this tag. Slot allotments and arena briefings will be sent to your registered email.
-              </p>
             </div>
           )}
         </motion.div>

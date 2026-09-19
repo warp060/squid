@@ -3,9 +3,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   FileText, Zap, BrainCircuit, Code2, Sparkles, Gamepad2, Crown,
-  Palette, X, Users, Clock, BadgeCheck, MapPin, Ticket, Trophy,
+  Palette, X, Users, BadgeCheck, MapPin, Ticket, Trophy,
   Eye, Loader2, Fingerprint, ShieldCheck, LayoutGrid, UsersRound,
-  CheckCircle2, ArrowUpRight, type LucideIcon,
+  CheckCircle2, ArrowUpRight, MessageCircle, ExternalLink, type LucideIcon,
 } from 'lucide-react';
 import SectionHeading from './SectionHeading';
 import { apiGet, type ArenaEvent } from '../lib/api';
@@ -48,7 +48,6 @@ function EventModal({ event, onClose }: { event: ArenaEvent | OfficialEvent; onC
     { icon: Ticket, k: 'Per Head Fee', v: event.per_head_fee || '-' },
     { icon: Ticket, k: 'Team Fee', v: event.team_fee || '-' },
     { icon: Trophy, k: 'Prize (1st / 2nd)', v: event.prize ? `₹${event.prize}` : UNAVAILABLE },
-    { icon: Clock, k: 'Duration', v: event.duration },
     { icon: BadgeCheck, k: 'Eligibility', v: event.eligibility },
     { icon: MapPin, k: 'Arena', v: event.venue_hint },
   ];
@@ -133,6 +132,24 @@ function EventModal({ event, onClose }: { event: ArenaEvent | OfficialEvent; onC
                     </li>
                   ))}
                 </ul>
+                {crew.phone && (
+                  <div className="mt-3.5 border-t border-white/10 pt-3">
+                    <a
+                      href={`https://wa.me/${crew.whatsapp || `91${crew.phone}`}?text=${encodeURIComponent(`Hello, I have an inquiry regarding the ${event.name} arena at INTELLETTO-26.`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center justify-between gap-2 rounded-xs border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 transition-all hover:border-emerald-400 hover:bg-emerald-500/20"
+                    >
+                      <div className="flex items-center gap-2">
+                        <MessageCircle size={14} className="text-[#25D366]" />
+                        <span className="font-grotesk text-[10.5px] font-bold tracking-wider text-ivory uppercase">
+                          WhatsApp: +91 {crew.phone}
+                        </span>
+                      </div>
+                      <ExternalLink size={12} className="text-dim group-hover:text-ivory" />
+                    </a>
+                  </div>
+                )}
               </div>
 
               <div className="hud-border bg-panel/60 p-4">

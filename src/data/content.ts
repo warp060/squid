@@ -18,23 +18,109 @@ export interface EventCrew {
   unit: string;
   coordinators: string[];
   team: string[];
+  phone?: string;
+  whatsapp?: string;
 }
 
-export const EVENT_CREW: Record<string, EventCrew> = {
-  'technical-quiz': { unit: 'Technical Quiz', coordinators: ['Hasni Mubarak', 'Sanjana V'], team: ['Azeez', 'Nithish Kumar', 'Vaishnavi'] },
-  'ai-web-design': { unit: 'AI – Web Design', coordinators: ['Fareeduddeen', 'Sumaiya J'], team: ['Mohammed Ameen', 'Mohammed Affan', 'Shalini'] },
-  'coding-debugging': { unit: 'AI – Web Design', coordinators: ['Fareeduddeen', 'Sumaiya J'], team: ['Mohammed Ameen', 'Mohammed Affan', 'Shalini'] },
-  'paper-presentation': { unit: 'Paper Presentation / Poster', coordinators: ['Jagan', 'Rasika'], team: ['Vijay', 'Falak', 'Harish Priyan'] },
-  'prompt-clash': { unit: 'Prompt Clash', coordinators: ['Nizzamuddin', 'Yuvarani'], team: ['Evinesh', 'Priyanka V.'] },
-  'prompt-wars': { unit: 'Prompt Clash', coordinators: ['Nizzamuddin', 'Yuvarani'], team: ['Evinesh', 'Priyanka V.'] },
-  'free-fire': { unit: 'E-Sports (Free Fire)', coordinators: ['Sabarivasan'], team: ['Shanmugam', 'Imran', 'Yukesh'] },
-  'quest-of-mind': { unit: 'Quest of Mind', coordinators: ['Arif', 'Priyanka I'], team: ['Aiman', 'Pooja Shree'] },
-  'connections': { unit: 'Quest of Mind', coordinators: ['Arif', 'Priyanka I'], team: ['Aiman', 'Pooja Shree'] },
-  'squid-game': { unit: 'Squid Game', coordinators: ['Emad Ur Rahman', 'Samyuktha'], team: ['Mohammed Amaan', 'Hemasri B'] },
-  'chess': { unit: 'Squid Game', coordinators: ['Emad Ur Rahman', 'Samyuktha'], team: ['Mohammed Amaan', 'Hemasri B'] },
-  'filmography-photography': { unit: 'Filmography / Photography', coordinators: ['Ashiq', 'Sai'], team: [] },
-  'art-painting': { unit: 'Filmography / Photography', coordinators: ['Ashiq', 'Sai'], team: [] },
+export const EVENT_WHATSAPP_HANDLERS: Record<string, { event: string; phone: string; displayPhone: string }> = {
+  'quest-of-mind': { event: 'Quest of Mind', phone: '916383567945', displayPhone: '6383567945' },
+  'free-fire': { event: 'E-Sports (Free Fire)', phone: '919566685417', displayPhone: '9566685417' },
+  'filmography-photography': { event: 'Filmography / Photography', phone: '918678903307', displayPhone: '8678903307' },
+  'paper-presentation': { event: 'Paper Presentation / Poster', phone: '917010298642', displayPhone: '7010298642' },
+  'ai-web-design': { event: 'AI – Web Design', phone: '918778477488', displayPhone: '8778477488' },
+  'technical-quiz': { event: 'Technical Quiz', phone: '919489619915', displayPhone: '9489619915' },
+  'squid-game': { event: 'Squid Game', phone: '916380559119', displayPhone: '6380559119' },
+  'prompt-clash': { event: 'Prompt Clash', phone: '916369906810', displayPhone: '6369906810' },
 };
+
+export const EVENT_CREW: Record<string, EventCrew> = {
+  'technical-quiz': { unit: 'Technical Quiz', coordinators: ['Hasni Mubarak', 'Sanjana V'], team: ['Azeez', 'Nithish Kumar', 'Vaishnavi'], phone: '9489619915', whatsapp: '919489619915' },
+  'ai-web-design': { unit: 'AI – Web Design', coordinators: ['Fareeduddeen', 'Sumaiya J'], team: ['Mohammed Ameen', 'Mohammed Affan', 'Shalini'], phone: '8778477488', whatsapp: '918778477488' },
+  'coding-debugging': { unit: 'AI – Web Design', coordinators: ['Fareeduddeen', 'Sumaiya J'], team: ['Mohammed Ameen', 'Mohammed Affan', 'Shalini'], phone: '8778477488', whatsapp: '918778477488' },
+  'paper-presentation': { unit: 'Paper Presentation / Poster', coordinators: ['Jagan', 'Rasika'], team: ['Vijay', 'Falak', 'Harish Priyan'], phone: '7010298642', whatsapp: '917010298642' },
+  'prompt-clash': { unit: 'Prompt Clash', coordinators: ['Nizzamuddin', 'Yuvarani'], team: ['Evinesh', 'Priyanka V.'], phone: '6369906810', whatsapp: '916369906810' },
+  'prompt-wars': { unit: 'Prompt Clash', coordinators: ['Nizzamuddin', 'Yuvarani'], team: ['Evinesh', 'Priyanka V.'], phone: '6369906810', whatsapp: '916369906810' },
+  'free-fire': { unit: 'E-Sports (Free Fire)', coordinators: ['Sabarivasan'], team: ['Shanmugam', 'Imran', 'Yukesh'], phone: '9566685417', whatsapp: '919566685417' },
+  'quest-of-mind': { unit: 'Quest of Mind', coordinators: ['Arif', 'Priyanka I'], team: ['Aiman', 'Pooja Shree'], phone: '6383567945', whatsapp: '916383567945' },
+  'connections': { unit: 'Quest of Mind', coordinators: ['Arif', 'Priyanka I'], team: ['Aiman', 'Pooja Shree'], phone: '6383567945', whatsapp: '916383567945' },
+  'squid-game': { unit: 'Squid Game', coordinators: ['Emad Ur Rahman', 'Samyuktha'], team: ['Mohammed Amaan', 'Hemasri B'], phone: '6380559119', whatsapp: '916380559119' },
+  'chess': { unit: 'Squid Game', coordinators: ['Emad Ur Rahman', 'Samyuktha'], team: ['Mohammed Amaan', 'Hemasri B'], phone: '6380559119', whatsapp: '916380559119' },
+  'filmography-photography': { unit: 'Filmography / Photography', coordinators: ['Ashiq', 'Sai'], team: [], phone: '8678903307', whatsapp: '918678903307' },
+  'art-painting': { unit: 'Filmography / Photography', coordinators: ['Ashiq', 'Sai'], team: [], phone: '8678903307', whatsapp: '918678903307' },
+};
+
+export function buildRegistrationWhatsAppUrl(
+  eventSlug: string,
+  registration: {
+    player_tag: string;
+    full_name: string;
+    email: string;
+    phone: string;
+    college: string;
+    department: string;
+    year_of_study: string;
+    city?: string;
+    state?: string;
+    alternate_phone?: string;
+    emergency_contact?: string;
+    team_name?: string;
+    team_size?: string;
+    teammates?: { name: string }[];
+  }
+): { url: string; phone: string; displayPhone: string; eventName: string } | null {
+  const handler = EVENT_WHATSAPP_HANDLERS[eventSlug];
+  if (!handler) return null;
+
+  const lines = [
+    `⚡ *INTELLETTO-26 // ARENA REGISTRATION* ⚡`,
+    `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+    `🎯 *Arena:* ${handler.event}`,
+    `🎫 *Player Tag:* ${registration.player_tag}`,
+    `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+    `👤 *Student Name:* ${registration.full_name}`,
+    `📱 *Phone Number:* ${registration.phone}`,
+    `📧 *Email:* ${registration.email}`,
+    `🏛️ *College:* ${registration.college}`,
+    `🎓 *Department:* ${registration.department}`,
+    `📅 *Year of Study:* ${registration.year_of_study}`,
+  ];
+
+  if (registration.city || registration.state) {
+    lines.push(`📍 *Location:* ${[registration.city, registration.state].filter(Boolean).join(', ')}`);
+  }
+
+  if (registration.alternate_phone) {
+    lines.push(`📞 *Alternate Phone:* ${registration.alternate_phone}`);
+  }
+
+  if (registration.emergency_contact) {
+    lines.push(`🆘 *Emergency Contact:* ${registration.emergency_contact}`);
+  }
+
+  if (registration.team_name) {
+    lines.push(`👥 *Squad Name:* ${registration.team_name}`);
+  }
+
+  if (registration.teammates && registration.teammates.length > 0) {
+    const list = registration.teammates.map((t, idx) => `   ${idx + 1}. ${t.name}`).join('\n');
+    lines.push(`🤝 *Teammates:*\n${list}`);
+  }
+
+  lines.push(`━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+  lines.push(`✅ *Status:* Registered in System`);
+  lines.push(`_Dept. of Artificial Intelligence & Machine Learning_`);
+  lines.push(`_C. Abdul Hakeem College of Engineering & Technology_`);
+
+  const message = lines.join('\n');
+  const url = `https://wa.me/${handler.phone}?text=${encodeURIComponent(message)}`;
+
+  return {
+    url,
+    phone: handler.phone,
+    displayPhone: handler.displayPhone,
+    eventName: handler.event,
+  };
+}
 
 export const EVENT_IMAGES: Record<string, string> = {
   'technical-quiz': '/media/e-quiz.jpg',
@@ -122,3 +208,4 @@ export const RULES: RuleBlock[] = [
     ],
   },
 ];
+
